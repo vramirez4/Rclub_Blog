@@ -1,0 +1,12 @@
+name: "Rclub_Blog"
+title: "Rclub Blog"
+description: |
+  Rclub Blog
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+output: distill::distill_article

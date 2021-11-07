@@ -1,0 +1,23 @@
+---
+title: "Welcome to Rclub Blog"
+description: |
+  Welcome to the Rclub Blog.
+author:
+  - name: Vince Ramirez 
+    affiliation: UC Merced / Monell
+date: 11-06-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating blogs with Distill at:
+# https://rstudio.github.io/distill/blog.html
+
+```
+
+Introducing the R club Blog! A space for us to share everything R!
+
