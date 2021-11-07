@@ -36,7 +36,7 @@ https://github.com/rstudio/cheatsheets/blob/master/purrr.pdf
 
 # Code
 ## Packages / Functions
-```{r setup, include=FALSE}
+```{r setup}
 knitr::opts_chunk$set(echo = TRUE)
 
 # R Version 
@@ -163,7 +163,7 @@ rescale01 <- function(x, finite=TRUE) {
   
 }
 
-# Call function with attibute
+# Call function with attribute
 rescale01(df$a, finite = TRUE)
 
 # Pipe Dream - never break the pipe
