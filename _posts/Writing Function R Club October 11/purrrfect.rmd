@@ -2,9 +2,6 @@
 title: "R Club - Writing Functions"
 description: |
   R Club
-author:
-  - name: Bob Pellegrino
-    affiliation: Monell Chemical Senses Center
 date: 11-06-2021
 output:
   distill::distill_article:

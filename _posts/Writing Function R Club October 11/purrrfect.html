@@ -95,7 +95,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://schema.org/Article -->
   <meta property="article:published" itemprop="datePublished" content="2021-11-06"/>
   <meta property="article:created" itemprop="dateCreated" content="2021-11-06"/>
-  <meta name="article:author" content="Bob Pellegrino"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="R Club - Writing Functions"/>
@@ -112,7 +111,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["R Club - Writing Functions"]},{"type":"character","attributes":{},"value":["R Club\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","affiliation"]}},"value":[{"type":"character","attributes":{},"value":["Bob Pellegrino"]},{"type":"character","attributes":{},"value":["Monell Chemical Senses Center"]}]}]},{"type":"character","attributes":{},"value":["11-06-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","output"]}},"value":[{"type":"character","attributes":{},"value":["R Club - Writing Functions"]},{"type":"character","attributes":{},"value":["R Club\n"]},{"type":"character","attributes":{},"value":["11-06-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1459,7 +1458,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"R Club - Writing Functions","description":"R Club","authors":[{"author":"Bob Pellegrino","authorURL":"#","affiliation":"Monell Chemical Senses Center","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-11-06T00:00:00.000-07:00","citationText":"Pellegrino, 2021"}
+{"title":"R Club - Writing Functions","description":"R Club","authors":[],"publishedDate":"2021-11-06T00:00:00.000-07:00"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1475,11 +1474,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <p><p>R Club</p></p>
 </div>
 
-<div class="d-byline">
-  Bob Pellegrino  (Monell Chemical Senses Center)
-  
-<br/>11-06-2021
-</div>
 
 <div class="d-article">
 <h1 id="introduction">Introduction</h1>
@@ -1513,18 +1507,18 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </code></pre>
 </div>
 <pre><code># A tibble: 10 x 4
-         a      b       c        d
-     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
- 1  0.397  -0.172  0.243  -1.34   
- 2 -1.65    0.572 -0.0604  0.385  
- 3  0.0109  0.147 -1.39   -0.726  
- 4 -1.07   -0.647 -0.255  -0.192  
- 5 -0.587   0.225 -1.76   -0.00239
- 6  1.13    1.53   0.803   0.272  
- 7 -1.54    0.297  0.600  -0.536  
- 8 -2.11    0.857  0.473  -0.825  
- 9  1.72    1.15  -0.156   0.216  
-10 -1.30   -0.831 -0.912   0.738  </code></pre>
+          a       b       c       d
+      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1  0.132   -0.281  -0.862   2.77  
+ 2  0.0929   0.285   0.203  -1.31  
+ 3 -0.478   -0.143   1.10   -0.682 
+ 4  0.185    1.20   -0.738  -1.14  
+ 5  1.38     0.0420 -1.51    0.185 
+ 6 -0.00778 -0.105  -0.638  -1.39  
+ 7 -0.507    0.420  -0.0181 -0.192 
+ 8  1.53    -0.993  -0.0485  0.472 
+ 9  1.14     0.651  -0.424  -0.721 
+10 -0.650   -1.94   -0.658   0.0863</code></pre>
 </div>
 <h2 id="making-a-function">Making a function</h2>
 <div class="layout-chunk" data-layout="l-body">
@@ -1543,18 +1537,18 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </code></pre>
 </div>
 <pre><code># A tibble: 10 x 4
-       a     b     c     d
-   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 0.654 0.432 0.782 0    
- 2 0.122 0.919 0.664 0.830
- 3 0.554 0.641 0.146 0.295
- 4 0.271 0.121 0.588 0.552
- 5 0.398 0.692 0     0.644
- 6 0.846 1.54  1     0.776
- 7 0.151 0.739 0.921 0.387
- 8 0     1.11  0.872 0.247
- 9 1     1.30  0.626 0.749
-10 0.212 0     0.332 1    </code></pre>
+        a     b     c      d
+    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+ 1 0.358  1.39  0.249 1     
+ 2 0.340  1.86  0.656 0.0185
+ 3 0.0788 1.50  1     0.170 
+ 4 0.383  2.62  0.296 0.0600
+ 5 0.931  1.66  0     0.378 
+ 6 0.294  1.54  0.334 0     
+ 7 0.0655 1.98  0.572 0.288 
+ 8 1      0.795 0.560 0.447 
+ 9 0.819  2.17  0.416 0.160 
+10 0      0     0.327 0.355 </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Reload OG dataframe</span>
 <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>get_data</span><span class='op'>(</span><span class='op'>)</span>
@@ -1572,8 +1566,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <span class='op'>(</span><span class='va'>x</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>/</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code> [1] 0.6134522 0.2724993 0.1575198 0.0000000 0.6985876 0.8486247
- [7] 1.0000000 0.2649639 0.1688003 0.3705756</code></pre>
+<pre><code> [1] 0.8646116 0.6094603 0.5813322 0.4271240 0.5957197 0.0000000
+ [7] 1.0000000 0.7115267 0.3442195 0.7689797</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Ask yourself: Is there still duplication?</span>
   <span class='co'>## YES! What am I repeating? [in this case, it's the range]</span>
@@ -1581,8 +1575,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <span class='op'>(</span><span class='va'>x</span> <span class='op'>-</span> <span class='va'>rng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>/</span> <span class='op'>(</span><span class='va'>rng</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>-</span> <span class='va'>rng</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code> [1] 0.6134522 0.2724993 0.1575198 0.0000000 0.6985876 0.8486247
- [7] 1.0000000 0.2649639 0.1688003 0.3705756</code></pre>
+<pre><code> [1] 0.8646116 0.6094603 0.5813322 0.4271240 0.5957197 0.0000000
+ [7] 1.0000000 0.7115267 0.3442195 0.7689797</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Make the function</span>
   <span class='va'>rescale01</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
@@ -1643,8 +1637,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span class='fu'>rescale01</span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>a</span>, finite <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code> [1] 1.0000000 0.4830712 0.2471926 0.0000000 0.7807315 0.9074545
- [7] 0.4280469 0.4185985 0.7871050 0.5057969</code></pre>
+<pre><code> [1] 1.0000000 0.3649928 0.1902048 0.6050569 0.5913477 0.3111750
+ [7] 0.0000000 0.3646560 0.6998893 0.8247339</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Pipe Dream - never break the pipe</span>
 <span class='va'>show_missings</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span> <span class='op'>{</span>
@@ -1681,27 +1675,27 @@ Missing values: 18</code></pre>
 </div></li>
 </ul>
 <pre><code>$a
- [1] 1.0000000 0.4830712 0.2471926 0.0000000 0.7807315 0.9074545
- [7] 0.4280469 0.4185985 0.7871050 0.5057969
+ [1] 1.0000000 0.3649928 0.1902048 0.6050569 0.5913477 0.3111750
+ [7] 0.0000000 0.3646560 0.6998893 0.8247339
 
 $b
- [1] 0.00000000 0.41194793 0.38481369 0.03229157 0.39222853 0.94803398
- [7] 0.66793820 0.52663053 1.00000000 0.29863995
+ [1] 0.8766719 0.5551602 0.2143847 0.2851325 1.0000000 0.4960241
+ [7] 0.0000000 0.3535793 0.5259896 0.1268818
 
 $c
- [1] 0.6608461 0.6012546 0.3944278 1.0000000 0.6289678 0.8735957
- [7] 0.5255739 0.0000000 0.4887286 0.1933711
+ [1] 0.3437050 0.9461774 0.1397010 0.7011162 0.9280341 0.9034455
+ [7] 0.8489353 0.0000000 0.8311391 1.0000000
 
 $d
- [1] 0.09393033 0.60658005 0.57819965 0.82298791 0.37905302 0.00000000
- [7] 0.60423099 0.29118577 0.83895104 1.00000000</code></pre>
+ [1] 0.2895379 0.5686423 0.9372733 0.4912270 0.3463724 0.6601601
+ [7] 0.0000000 0.5927419 0.2325393 1.0000000</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df</span> <span class='op'>%&gt;%</span>
   <span class='fu'>map_dbl</span><span class='op'>(</span><span class='va'>mean</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>          a           b           c           d 
- 0.04883398 -0.46369302  0.39199289  0.08693641 </code></pre>
+<pre><code>           a            b            c            d 
+ 0.703422299 -0.126133730  0.274677382  0.008612808 </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># But what about spitting out a vector instead of a list?</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span>
@@ -1709,28 +1703,28 @@ $d
 </code></pre>
 </div>
 <pre><code>List of 4
- $ a: num [1:10] 1 0.483 0.247 0 0.781 ...
- $ b: num [1:10] 0 0.4119 0.3848 0.0323 0.3922 ...
- $ c: num [1:10] 0.661 0.601 0.394 1 0.629 ...
- $ d: num [1:10] 0.0939 0.6066 0.5782 0.823 0.3791 ...</code></pre>
+ $ a: num [1:10] 1 0.365 0.19 0.605 0.591 ...
+ $ b: num [1:10] 0.877 0.555 0.214 0.285 1 ...
+ $ c: num [1:10] 0.344 0.946 0.14 0.701 0.928 ...
+ $ d: num [1:10] 0.29 0.569 0.937 0.491 0.346 ...</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df</span> <span class='op'>%&gt;%</span>
   <span class='fu'>modify</span><span class='op'>(</span><span class='va'>rescale01</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 10 x 4
-       a      b     c      d
-   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
- 1 1     0      0.661 0.0939
- 2 0.483 0.412  0.601 0.607 
- 3 0.247 0.385  0.394 0.578 
- 4 0     0.0323 1     0.823 
- 5 0.781 0.392  0.629 0.379 
- 6 0.907 0.948  0.874 0     
- 7 0.428 0.668  0.526 0.604 
- 8 0.419 0.527  0     0.291 
- 9 0.787 1      0.489 0.839 
-10 0.506 0.299  0.193 1     </code></pre>
+       a     b     c     d
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 1     0.877 0.344 0.290
+ 2 0.365 0.555 0.946 0.569
+ 3 0.190 0.214 0.140 0.937
+ 4 0.605 0.285 0.701 0.491
+ 5 0.591 1     0.928 0.346
+ 6 0.311 0.496 0.903 0.660
+ 7 0     0     0.849 0    
+ 8 0.365 0.354 0     0.593
+ 9 0.700 0.526 0.831 0.233
+10 0.825 0.127 1     1    </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># What if I want to run a few cols with function?</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span>
@@ -1738,36 +1732,36 @@ $d
 </code></pre>
 </div>
 <pre><code># A tibble: 10 x 4
-       a      b       c      d
-   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
- 1 1     0       0.782  -1.68 
- 2 0.483 0.412   0.595   0.439
- 3 0.247 0.385  -0.0552  0.321
- 4 0     0.0323  1.85    1.33 
- 5 0.781 0.392   0.682  -0.502
- 6 0.907 0.948   1.45   -2.07 
- 7 0.428 0.668   0.357   0.429
- 8 0.419 0.527  -1.30   -0.866
- 9 0.787 1       0.241   1.40 
-10 0.506 0.299  -0.687   2.07 </code></pre>
+       a     b      c       d
+   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+ 1 1     0.877 -0.530 -0.831 
+ 2 0.365 0.555  0.982  0.223 
+ 3 0.190 0.214 -1.04   1.61  
+ 4 0.605 0.285  0.367 -0.0692
+ 5 0.591 1      0.937 -0.616 
+ 6 0.311 0.496  0.875  0.569 
+ 7 0     0      0.738 -1.92  
+ 8 0.365 0.354 -1.39   0.314 
+ 9 0.700 0.526  0.694 -1.05  
+10 0.825 0.127  1.12   1.85  </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df</span> <span class='op'>%&gt;%</span>
   <span class='fu'>mutate_at</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"a"</span>, <span class='st'>"b"</span><span class='op'>)</span>, <span class='op'>~</span> <span class='fu'>rescale01</span><span class='op'>(</span><span class='va'>.</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 10 x 4
-       a      b       c      d
-   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
- 1 1     0       0.782  -1.68 
- 2 0.483 0.412   0.595   0.439
- 3 0.247 0.385  -0.0552  0.321
- 4 0     0.0323  1.85    1.33 
- 5 0.781 0.392   0.682  -0.502
- 6 0.907 0.948   1.45   -2.07 
- 7 0.428 0.668   0.357   0.429
- 8 0.419 0.527  -1.30   -0.866
- 9 0.787 1       0.241   1.40 
-10 0.506 0.299  -0.687   2.07 </code></pre>
+       a     b      c       d
+   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+ 1 1     0.877 -0.530 -0.831 
+ 2 0.365 0.555  0.982  0.223 
+ 3 0.190 0.214 -1.04   1.61  
+ 4 0.605 0.285  0.367 -0.0692
+ 5 0.591 1      0.937 -0.616 
+ 6 0.311 0.496  0.875  0.569 
+ 7 0     0      0.738 -1.92  
+ 8 0.365 0.354 -1.39   0.314 
+ 9 0.700 0.526  0.694 -1.05  
+10 0.825 0.127  1.12   1.85  </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>df2</span> <span class='op'>&lt;-</span> <span class='va'>df</span>
 
@@ -1778,18 +1772,18 @@ $d
 </code></pre>
 </div>
 <pre><code># A tibble: 10 x 4
-         a      b     c       d
-     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
- 1  3.71   0.0551 2.78   0.318 
- 2  1.78   1.36   2.60   2.44  
- 3  0.895  1.28   1.94   2.32  
- 4 -0.0293 0.158  3.85   3.33  
- 5  2.89   1.30   2.68   1.50  
- 6  3.36   3.07   3.45  -0.0706
- 7  1.57   2.18   2.36   2.43  
- 8  1.54   1.73   0.705  1.13  
- 9  2.91   3.23   2.24   3.40  
-10  1.86   1.00   1.31   4.07  </code></pre>
+       a     b     c      d
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+ 1  4.30 3.35  1.47  1.17  
+ 2  2.29 2.25  2.98  2.22  
+ 3  1.74 1.09  0.958 3.61  
+ 4  3.05 1.33  2.37  1.93  
+ 5  3.01 3.77  2.94  1.38  
+ 6  2.12 2.05  2.88  2.57  
+ 7  1.14 0.364 2.74  0.0761
+ 8  2.29 1.57  0.608 2.31  
+ 9  3.35 2.16  2.69  0.954 
+10  3.74 0.796 3.12  3.85  </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#shortcuts from purrr</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span>
@@ -1797,18 +1791,18 @@ $d
 </code></pre>
 </div>
 <pre><code># A tibble: 10 x 4
-         a      b     c       d
-     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
- 1  3.71   0.0551 2.78   0.318 
- 2  1.78   1.36   2.60   2.44  
- 3  0.895  1.28   1.94   2.32  
- 4 -0.0293 0.158  3.85   3.33  
- 5  2.89   1.30   2.68   1.50  
- 6  3.36   3.07   3.45  -0.0706
- 7  1.57   2.18   2.36   2.43  
- 8  1.54   1.73   0.705  1.13  
- 9  2.91   3.23   2.24   3.40  
-10  1.86   1.00   1.31   4.07  </code></pre>
+       a     b     c      d
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+ 1  4.30 3.35  1.47  1.17  
+ 2  2.29 2.25  2.98  2.22  
+ 3  1.74 1.09  0.958 3.61  
+ 4  3.05 1.33  2.37  1.93  
+ 5  3.01 3.77  2.94  1.38  
+ 6  2.12 2.05  2.88  2.57  
+ 7  1.14 0.364 2.74  0.0761
+ 8  2.29 1.57  0.608 2.31  
+ 9  3.35 2.16  2.69  0.954 
+10  3.74 0.796 3.12  3.85  </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># So why are maps powerful with functions. Answer: pipe stuff</span>
 <span class='va'>df</span> <span class='op'>%&gt;%</span> 
@@ -1819,8 +1813,8 @@ $d
   <span class='fu'>map_dbl</span><span class='op'>(</span><span class='st'>"r.squared"</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>       dude       sweet 
-0.001502336 0.627542932 </code></pre>
+<pre><code>      dude      sweet 
+0.40715279 0.09818042 </code></pre>
 </div>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
