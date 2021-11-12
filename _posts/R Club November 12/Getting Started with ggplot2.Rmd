@@ -165,4 +165,4 @@ ggplot(data=mpg, aes(x=as.factor(cyl),y=cty)) +
 
 # Wrapping Up
 
-ggplot2 allows us to create powerful and customizable graphics using relatively simple commands. The library is well documented and maintained allowing R novices and experts to quickly pick it up. We have barely scratched the surface of what ggplot2 is able to do. Additionally, user written companion libraries exist which extend the functionality of ggplot2. When it comes to creating visualizations in R, the possibilities are endless.
+ggplot2 allows us to create powerful and customizable graphics using relatively simple commands. The library is well documented and maintained allowing R novices and experts to quickly pick it up. We have barely scratched the surface of what ggplot2 is able to do. Additionally, user written companion libraries exist which extend the functionality of ggplot2. The possibilities are endless.
