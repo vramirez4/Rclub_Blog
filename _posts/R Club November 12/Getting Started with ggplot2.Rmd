@@ -1,0 +1,168 @@
+---
+title: "Getting Started with ggplot2"
+description: |
+  R-Club November 12 2021
+author: "Vince Ramirez"
+date: "`r Sys.Date()`"
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(ggplot2)
+```
+
+# Introduction
+
+The goal of today is to learn the basic structure of a ggplot2 command to create graphics. We will be working with the mtcars dataset which is already loaded into R.
+
+A quick view of this data can be done using the glimpse, str, or head functions. Take your pick!
+
+```{r echo=TRUE}
+str(mtcars)
+
+```
+
+```{r echo=TRUE}
+head(mtcars)
+```
+
+```{r echo=TRUE}
+glimpse(mtcars)
+```
+
+# Plotting Using base-R
+
+We can use the base functions in R to make plots of these data. R itself has very powerful graphic capabilities, and for many this works just fine.
+
+A simple plot may want to look at the relationship between horsepower and miles per gallon. This is easy visualized below
+
+```{r echo=TRUE}
+plot(hp~mpg,data = mtcars,ylab="horsepower",xlab="miles per gallon")
+```
+
+An alternative method is to use the package ggplot2 in order to create your visuals.
+
+# ggplot2: A primer
+
+ggplot2 is a powerful graphics library in R which is part of the larger tidyverse. It is praised for the ability to create powerful and highly customizable visuals with relatively simple commands.
+
+These commands follow a very generic structure which is defined as follows:
+
+ggplot2(data= x, mappings=aes())+ geom_function()
+
+or
+
+ggplot2(data) + geom_function(mapping=aes())
+
+Where aes() is the aesthetics in your ggplot. Here we will define our X and Y variables as well as our aesthetic choices such as our coloring schemes.
+
+A simple ggplot is shown below.
+
+```{r echo=TRUE}
+ggplot(data=mtcars, aes(x=mpg, y=hp)) +
+  geom_point()
+
+```
+
+We can see that we have recreated the plot made using base-R.
+
+Let's take it a step further and customize our plot. We can invoke themes
+
+```{r echo=TRUE}
+ggplot(data=mtcars, aes(x=mpg, y=hp)) +
+  geom_point() +
+  theme_bw()
+
+```
+
+We can change our axis-labels
+
+```{r echo=TRUE}
+ggplot(data=mtcars, aes(x=mpg, y=hp)) + geom_point() + theme_bw() + labs(x="Miles Per Gallon", y="Horsepower")
+```
+
+We can change our aesthetics to categorize our data based on the number of cylinders in the engine. It needs to be converted to a factor variable (categorical variable) first.
+
+```{r echo=TRUE}
+ggplot(data=mtcars, aes(x=mpg, y=hp,col=as.factor(cyl))) +
+  geom_point() +
+  theme_bw() +
+  labs(x="Miles Per Gallon", y="Horsepower")
+```
+
+We can adjust our legend with the labs() command as well.
+
+```{r echo=TRUE}
+ggplot(data=mtcars, aes(x=mpg, y=hp,col=as.factor(cyl))) +
+  geom_point() +
+  theme_bw() +
+  labs(col="Cylinders",x="Miles Per Gallon", y="Horsepower")
+```
+
+If we want a different graph for each engine type we can use facets.
+
+```{r echo=TRUE}
+ggplot(data=mtcars, aes(x=mpg, y=hp)) +
+  geom_point() +
+  theme_bw() +
+  labs(x="Miles Per Gallon", y="Horsepower") + facet_wrap(~cyl)
+```
+
+This just scratches the surface of what ggplot is capable of. It is a simple example, but the possibilities are almost endless.
+
+# Different Graphic Types
+
+I have displayed a simple x-y scatter plot, but the process for other plot types is very similar. Here is an example of a highly customized plot. I will use a similar set of data already loaded into R called "mpg".
+
+```{r echo=TRUE}
+str(mpg)
+```
+
+I will create a violin plot which shows the distribution of the data. I am interested in mile per gallon in the city and the number of cylinders in the engine.
+
+```{r echo=TRUE}
+ggplot(data=mpg, aes(x=as.factor(cyl),y=cty)) +
+  geom_violin() +
+  theme_bw() +
+  labs(x="Number of Cylinders in Engine", y="Miles per Gallon in the City")
+```
+
+This reveals a lot already, but we can add more. Let's add a box and whisker to better understand the distribution.
+
+```{r echo=TRUE}
+ggplot(data=mpg, aes(x=as.factor(cyl),y=cty)) +
+  geom_violin() +
+  theme_bw() + 
+  geom_boxplot(width=0.1) +
+  labs(x="Number of Cylinders in Engine", y="Miles per Gallon in the City")
+```
+
+We can also add the individual points to this graph. I want to jitter the points to prevent overplotting and make them semi-transparent.
+
+```{r echo=TRUE}
+ggplot(data=mpg, aes(x=as.factor(cyl),y=cty)) +
+  geom_violin() +
+  theme_bw() + 
+  geom_boxplot(width=0.1) +
+  geom_jitter(alpha=0.4) +
+  labs(x="Number of Cylinders in Engine", y="Miles per Gallon in the City")
+```
+
+Next I will adjust the width of our jittered points.
+
+```{r echo=TRUE}
+ggplot(data=mpg, aes(x=as.factor(cyl),y=cty)) +
+  geom_violin() +
+  theme_bw() + 
+  geom_boxplot(width=0.1) +
+  geom_jitter(alpha=0.3, width=0.2) +
+  labs(x="Number of Cylinders in Engine", y="Miles per Gallon in the City")
+```
+
+# Wrapping Up
+
+ggplot2 allows us to create powerful and customizable graphics using relatively simple commands. The library is well documented and maintained allowing R novices and experts to quickly pick it up. We have barely scratched the surface of what ggplot2 is able to do. Additionally, user written companion libraries exist which extend the functionality of ggplot2. When it comes to creating visualizations in R, the possibilities are endless.
