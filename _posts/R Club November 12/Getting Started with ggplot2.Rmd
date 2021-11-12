@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with ggplot2"
+title: "Getting Started with ggplot2!"
 description: |
   R-Club November 12 2021
 author: "Vince Ramirez"
