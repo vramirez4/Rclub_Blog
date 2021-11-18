@@ -43,16 +43,3 @@ We also have a practice of sharing the code we present after R club, but we've t
 
 We also hope that by publicly documenting our R club, we might inspire the nucleation of other R clubs. 
 
-As founding CJ wrote in the first R club invitation e-mail, we believe that "a regular meeting will push us along ever-so-slightly towards R-enlightenment... the objective is to teach ourselves/each other useful and immediately-applicable techniqes and to get us in the habit of using it more" so that "veterans can ease the steep learning curve, and that notives might be less intimidated if we are 'in it together'. 
-
-
-
-
-
-
-
-
-
-
-#Practice
-
