@@ -26,11 +26,13 @@ Anyone that takes part in R club.
 
 # Getting Started
 
-If you do not already use github/git, then please familiarize yourself with the basics. There are a number of GUI desktop applications that make using github very easy. Unfortunately I will, not cover using github in today's tutorial.
+If you do not already use github/git, then please familiarize yourself with the basics. There are a number of GUI desktop applications that make using github very easy. Unfortunately I will, not cover using github in depth during today's tutorial.
 
 To contribute to the repository you will need to clone the github repository for the blog, and work within the project's directories.
 
 I am assuming you are using R studio. To make everything run smoothly you should make Rmarkdown documents the standard for your R club presentations.
+
+First we will need to install the distill package.
 
 ```         
 install.packages("distill")
@@ -48,23 +50,25 @@ This will create a new post in the /\_posts/ directory of the git repository.
 
 i created a new post for this R club (see below):
 
-![](images/_posts Directory.png)
+![](images/newDirectory.png)
 
 You can then add in your Rmarkdown file, or create a new Rmarkdown file into this repository.
 
 When beginning a new Rmarkdown file that you intend to have as a blog post, you should use the distill template.
 
-![](images/Rmarkdown Distill Template-01.png)
+![](images/Rmarkdown%20Distill%20Template-01.png)
 
 Be sure to format your YAML appropriately. An example is below
 
-![](images/YAML for post.png)
+![](images/YAML%20for%20post.png)
 
 You can then run your Rmarkdown as usual.
 
 # Example
 
 The following data and example is based on analysis found at [https://github.com/davestroud/BeerStudyhttps://github.com/davestroud/BeerStudy](https://github.com/davestroud/BeerStudy){.uri}
+
+The authors of this data set were interested in looking at the relationship between alcohol content (alcohol by volume or ABV) and bitterness of beer (IBU).
 
 ```{r echo=TRUE}
 library(dplyr)
@@ -82,7 +86,7 @@ Beer_data<-left_join(Beers,Breweries,by="Brew_ID")
 
 First we can look at the distribution of IBU (International Bittering Units).
 
-```{r warning=F, echo=F}
+```{r warning=F, echo=TRUE}
 Beer_data %>% ggplot(aes(x=IBU)) + geom_histogram()
 
 ```
@@ -91,7 +95,7 @@ Most beers fall under 100 IBUs, although some do approach 120+. Many beers do no
 
 ### We can also look at ABV (alcohol by volume)
 
-```{r}
+```{r echo=TRUE}
 Beer_data %>% ggplot(aes(x=ABV)) + geom_histogram()
 
 ```
@@ -100,7 +104,7 @@ Most beers are under 10% ABV.
 
 ### How does ABV and IBU correlate?
 
-```{r}
+```{r echo=TRUE}
 Beer_data %>% ggplot(aes(x=ABV,y=IBU)) + geom_point() + geom_smooth(method = "lm")
 
 Beer_data %>% ggplot(aes(x=ABV,y=IBU)) + geom_point() + geom_smooth(method = "loess")
@@ -140,14 +144,14 @@ plot_usmap(data=Median_ABV_IBU_State_,values = "Median ABV") + scale_fill_gradie
 
 This will create an html in our \_post directory, and your post will be updated in the /docs/posts/ directory.![](images/Directory.png)
 
-![](images/Directory 2.png)
+![](images/Directory%202.png)
 
-![](images/Directory 3.png)
+![](images/Directory%203.png)
 
 # Checking Your Distill HTML "index.html"
 
-![](images/Distill HTML.png)
+![](images/Distill%20HTML.png)
 
 # Final Steps
 
-You need to push to github. The blog pulls from the github repository. We will need to figure out a work flow to merge to the master repository. More to come soon.
+You need to push to github. We will need to figure out a work flow to have individuals push to the master branch when they have finished putting together their R markdown files. More to come soon.
