@@ -2243,6 +2243,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <h2 id="lets-plot-it-on-a-map">Let’s Plot it on a Map</h2>
 <p>Here I plot which state has the highest median ABV using.</p>
 <div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://usmap.dev'>usmap</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>Median_ABV_IBU_State_</span><span class='op'>&lt;-</span><span class='va'>Median_ABV_IBU_State</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span>state<span class='op'>=</span><span class='st'>"State"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/usmap/man/plot_usmap.html'>plot_usmap</a></span><span class='op'>(</span>data<span class='op'>=</span><span class='va'>Median_ABV_IBU_State_</span>,values <span class='op'>=</span> <span class='st'>"Median ABV"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient2</a></span><span class='op'>(</span>low<span class='op'>=</span><span class='st'>"red"</span>,mid<span class='op'>=</span><span class='st'>"white"</span>,high<span class='op'>=</span><span class='st'>"blue"</span>,midpoint <span class='op'>=</span> <span class='fl'>0.053</span><span class='op'>)</span></span></code></pre>
+</div>
 <p><img src="Example_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
 </div>
 <h1 id="after-you-finish-you-should-knit-the-distill-article">After You Finish You Should Knit The Distill Article</h1>

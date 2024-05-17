@@ -132,7 +132,7 @@ Median_ABV_IBU_State %>% ggplot(aes(x=reorder(State,`Median IBU`),y=`Median IBU`
 
 Here I plot which state has the highest median ABV using.
 
-```{r}
+```{r echo=TRUE}
 library(usmap)
 
 Median_ABV_IBU_State_<-Median_ABV_IBU_State %>% rename(state="State")
