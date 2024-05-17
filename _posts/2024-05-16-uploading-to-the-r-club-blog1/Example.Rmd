@@ -75,19 +75,22 @@ library(dplyr)
 library(readr)
 library(magrittr)
 library(ggplot2)
-Beers<-read_csv("data/Beers.csv", col_types = cols())
-Breweries<-read_csv("data/Breweries.csv", col_types = cols())
+Beers <- read_csv("data/Beers.csv")
+Breweries <- read_csv("data/Breweries.csv")
 
-Beers<- Beers %>% rename(Brew_ID="Brewery_id")
+Beers <- Beers %>%
+  rename(Brew_ID = "Brewery_id")
 
-Beer_data<-left_join(Beers,Breweries,by="Brew_ID")
+Beer_data <- left_join(Beers,Breweries, by = "Brew_ID")
 
 ```
 
 First we can look at the distribution of IBU (International Bittering Units).
 
 ```{r warning=F, echo=TRUE}
-Beer_data %>% ggplot(aes(x=IBU)) + geom_histogram()
+Beer_data %>%
+  ggplot(aes(x = IBU)) +
+  geom_histogram()
 
 ```
 
@@ -96,7 +99,9 @@ Most beers fall under 100 IBUs, although some do approach 120+. Many beers do no
 ### We can also look at ABV (alcohol by volume)
 
 ```{r echo=TRUE}
-Beer_data %>% ggplot(aes(x=ABV)) + geom_histogram()
+Beer_data %>%
+  ggplot(aes(x = ABV)) +
+  geom_histogram()
 
 ```
 
@@ -105,27 +110,44 @@ Most beers are under 10% ABV.
 ### How does ABV and IBU correlate?
 
 ```{r echo=TRUE}
-Beer_data %>% ggplot(aes(x=ABV,y=IBU)) + geom_point() + geom_smooth(method = "lm")
+Beer_data %>%
+  ggplot(aes(x=ABV,y=IBU)) +
+  geom_point() +
+  geom_smooth(method = "lm")
 
-Beer_data %>% ggplot(aes(x=ABV,y=IBU)) + geom_point() + geom_smooth(method = "loess")
+Beer_data %>%
+  ggplot(aes(x=ABV,y=IBU)) +
+  geom_point() +
+  geom_smooth(method = "loess")
 
 ```
 
 ## Which State has the highest median ABV?
 
-```{r}
-Median_ABV_IBU_State<- Beer_data %>% na.omit() %>%
+```{r echo=TRUE}
+Median_ABV_IBU_State <- Beer_data %>%
+  na.omit() %>%
   group_by(State) %>% 
-  summarise(`Median ABV`=median(ABV,na.rm = T), `Median IBU`=median(IBU,na.rm=T))
+  summarise(`Median ABV` = median(ABV, na.rm = T),
+            `Median IBU` = median(IBU, na.rm = T)
+            )
 
 
-Median_ABV_IBU_State %>% ggplot(aes(x=reorder(State,`Median ABV`),y=`Median ABV`)) + geom_bar(stat = "identity") +  theme(axis.text.x=element_text(size=rel(0.8), angle=90)) + xlab("State")
+Median_ABV_IBU_State %>%
+  ggplot(aes(x = reorder(State, `Median ABV`), y = `Median ABV`)) +
+  geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(size=rel(0.85), angle=90)) +
+  xlab("State")
 ```
 
 ## Which state has the highest median IBUs?
 
-```{r}
-Median_ABV_IBU_State %>% ggplot(aes(x=reorder(State,`Median IBU`),y=`Median IBU`)) + geom_bar(stat = "identity") +  theme(axis.text.x=element_text(size=rel(0.8), angle=90)) + xlab("State")
+```{r echo=TRUE}
+Median_ABV_IBU_State %>%
+  ggplot(aes(x = reorder(State,`Median IBU`),y = `Median IBU`)) +
+  geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(size = rel(0.85), angle = 90)) +
+  xlab("State")
 ```
 
 ## Let's Plot it on a Map
@@ -135,9 +157,14 @@ Here I plot which state has the highest median ABV using.
 ```{r echo=TRUE}
 library(usmap)
 
-Median_ABV_IBU_State_<-Median_ABV_IBU_State %>% rename(state="State")
+Median_ABV_IBU_State_ <- Median_ABV_IBU_State %>%
+  rename(state = "State")
 
-plot_usmap(data=Median_ABV_IBU_State_,values = "Median ABV") + scale_fill_gradient2(low="red",mid="white",high="blue",midpoint = 0.053)
+plot_usmap(data=Median_ABV_IBU_State_,values = "Median ABV") +
+  scale_fill_gradient2(low = "red",
+                       mid = "white",
+                       high = "blue",
+                       midpoint = 0.053)
 ```
 
 # After You Finish You Should Knit The Distill Article
