@@ -111,12 +111,12 @@ Most beers are under 10% ABV.
 
 ```{r echo=TRUE}
 Beer_data %>%
-  ggplot(aes(x=ABV,y=IBU)) +
+  ggplot(aes(x = IBU, y = ABV)) +
   geom_point() +
   geom_smooth(method = "lm")
 
 Beer_data %>%
-  ggplot(aes(x=ABV,y=IBU)) +
+  ggplot(aes(x = IBU, y = ABV)) +
   geom_point() +
   geom_smooth(method = "loess")
 
