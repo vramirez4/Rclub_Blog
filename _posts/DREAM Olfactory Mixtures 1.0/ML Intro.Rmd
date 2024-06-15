@@ -5,7 +5,6 @@ date: "`r Sys.Date()`"
 output:
   distill::distill_article:
     self_contained: false
-    number_sections: false
     toc: true
     toc_float: true
     fig_width: 7
@@ -37,7 +36,17 @@ theme_set(theme_light())
 #Note that I start with a brief slide show to re-introduce the challenge
 ```
 
-# Look at the data
+# DREAM Olfactory Mixtures Challenge
+
+The DREAM Olfactory Mixtures Challenge launched in April of 2024. 
+
+In this post we will take a look at the training data for this challenge and do some very basic machine learning.
+
+Recent advances in predictive methods and availability of perceptual data have paved the way for a growing interest in olfactory perception predictions from chemical representations of molecules. This has led to a growing consensus that for pure odors, it is possible to build models using the chemical structure of molecules to predict the perceptual values of natural language attributes of smells. However, predictions have mainly focused on pure molecules and not the real-world situation of olfactory mixtures. In order to start filling this gap, we plan to organize a second DREAM olfaction prediction challenge now focused on predicting the discriminability of olfactory mixtures. Using publicly available data from 3 different studies (Bushdid et al 2014, Snitz et al 2013, Ravia et al 2020) for more than 700 unique mixtures and almost 600 measurements of mixture pairs discriminability, participants will be tasked to predict the discriminability of 46 unpublished mixture pairs. 
+
+You can register for the challenge here: https://www.synapse.org/Synapse:syn53470621/wiki/626022
+
+## Look at the data
 
 ```{r}
 
@@ -53,7 +62,7 @@ glimpse(mixturesWithFeatures)
 
 
 
-# Visualize the data
+## Visualize the data
 
 ```{r}
 
@@ -119,9 +128,9 @@ print(paste0(" P =",signif(summary(fit1)$coef[2,4], 5)))
 ```
 
 
-# Basic machine learning
+## Basic machine learning
 
-## Split the data
+### Split the data
 ```{r}
 mixtures.clean <- mixturesWithFeatures %>% 
   #mutate(ID = row_number()) %>%
@@ -137,7 +146,7 @@ train_set <- mixtures.clean[trainIndex, ]
 test_set <- mixtures.clean[-trainIndex, ]
 ```
 
-
+### Fit a linear model
 ```{r}
 #fit a linear model
 model_linear <- lm(experimental_values ~ diff_mixture_size + overlap_percent + angle_dist, data = train_set)
@@ -147,7 +156,7 @@ summary(model_linear)
 
 ```
 
-## Make predictions
+### Make predictions
 ```{r}
 test_set$predicted <- predict(model_linear, newdata = test_set)
 
@@ -159,6 +168,7 @@ test_set %>%
 
 ```
 
+### Calculate metrics
 ```{r}
 # Calculate Mean Squared Error
 mse <- mean((test_set$experimental_values - test_set$predicted)^2)
@@ -172,7 +182,7 @@ print(paste("R-squared on test set:", r_squared))
 ```
 
 
-# Random Forest
+### Random Forest
 
 ```{r}
 
@@ -188,6 +198,8 @@ Percentage of variance explained--higher is better.
 MSE decreases slightly as we increase the number of trees, but variance explained slightly decreases. The model stablilizes around 300 trees.
 
 Note that the final variance explained is much lower than the estimates. This is likely because we are overfitting with only three variables.
+
+### Try the random forest model on the test set
 ```{r}
 #Now try it on the test set
 mixture.predict = predict(r, test_set)
@@ -206,7 +218,7 @@ print(paste0(" P =",signif(summary(fit2)$coef[2,4], 5)))
 
 ```
 
-
+### Look at which variables are most important
 ```{r}
 importance(r)
 ```
