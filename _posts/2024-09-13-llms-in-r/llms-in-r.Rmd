@@ -1,23 +1,203 @@
 ---
 title: "LLMs in R"
 description: |
-  A short description of the post.
-author:
-  - name: Joel Mainland
-    url: {}
-date: 2024-09-13
+  Using LLMs in R
+author: "Joel Mainland"
+date: "`r Sys.Date()`"
 output:
+  html_document:
+    number_sections: false
+    toc: true
+    toc_float: true
+    fig_width: 7
+    fig_height: 4.5
+    theme: cosmo
+    highlight: tango
+    code_folding: hide
   distill::distill_article:
     self_contained: false
+    toc: true
+    toc_float: true
+    fig_width: 7
+    fig_height: 4.5
+    theme: cosmo
+    highlight: tango
+    code_folding: hide
+  
 ---
 
-
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web.
+# Using LLMs in R
 
-Learn more about using Distill at <https://rstudio.github.io/distill>.
+## Introduction
+
+Let's talk about a couple methods for using LLMs in R. I'll be using three vignettes:
+1. GitHub Copilot
+2. chattr package
+3. API call to process text
+
+## GitHub Copilot
+
+GitHub Copilot is an AI pair programmer that helps you write code faster. It is powered by OpenAI's Codex, which is a language model trained on a diverse range of text, including code. Copilot can generate whole functions, suggest completions, and even write comments for you.
+
+Here is a short youtube video that can help you get Copilot and chattr working:
+https://www.youtube.com/watch?v=t7NrkAeosog
+
+### Example 1: suggest package
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, readxl)
+
+#read in data
+
+FL_K_raw <- read_excel("data/raw/FL_KSU.xlsx", sheet=3)%>% select(-2) # %>% clean_names()
+
+```
+
+This code throws an error because the `clean_names()` function is not loaded. Let's see if Copilot can suggest the package for us.
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, readxl, janitor)
+
+#read in data
+
+FL_K_raw <- read_excel("data/raw/FL_KSU.xlsx", sheet=3)%>% select(-2) %>% clean_names()
+```
+
+Add a comma after "readxl" and Copilot will suggest the `janitor` package.
 
 
+
+### Example 2: continue pattern based on names of files
+```{r}
+
+FL_Ma <- read_excel("/Users/jmainland/Mainland Lab Dropbox/Joel Mainland/AROMA methods paper/data/raw/FL_monell_A.xlsx", sheet = 3) 
+FL_Mb <- read_excel("/Users/jmainland/Mainland Lab Dropbox/Joel Mainland/AROMA methods paper/data/raw/FL_monell_B.xlsx", sheet = 3) 
+
+
+
+```
+
+This code reads in two files, but we want to read in five files. Let's see if Copilot can help us continue the pattern
+
+### Example 3: Ask question in comments
+```{r}
+
+# q: What package can make radar plots?
+# a
+
+
+# regex to match the phone number in the format (xxx) xxx-xxxx
+
+
+#perform PCA on descriptors and make a plot using tidyverse
+
+
+
+
+```
+
+This code asks questions in the comments. Let's see if Copilot can suggest a package that can make radar plots or regex to match a pattern.
+
+## Chattr package
+
+The `chattr` package is a package that allows you to create interactive chatbots in R. It is built on top of the `shiny` package and provides a simple interface to create chatbots that can interact with users.
+
+### Example 1: Create a simple chatbot in the Viewer
+```{r}
+remotes::install_github("mlverse/chattr")
+#go to https://openai.com/blog/openai-api and sign in
+#personal > View API keys > Create a new secret key
+#Sys.setenv(OPENAI_API_KEY = “sk-…”)
+
+
+
+library(chattr)
+#chattr_use("gpt35")
+#chattr_use("gpt4")
+chattr_use("copilot")
+
+#chattr_test()
+
+#chattr_app(as_job = TRUE)
+
+```
+
+You can run a window inside the R interface, but it doesn’t know about your code or data frames, so to me is just a worse interface than pasting into the webpage.
+
+One benefit is that you can use a local model to keep data private
+
+## API call to process text
+
+```{r}
+library(tidyverse)
+library(httr)
+library(stringr)
+
+api_key <- Sys.getenv("OPENAI_API_KEY")
+# Calls the ChatGPT API with the given prompt and returns the answer
+ask_chatgpt <- function(prompt) {
+  response <- POST(
+    url = "https://api.openai.com/v1/chat/completions", 
+    add_headers(Authorization = paste("Bearer", api_key)),
+    content_type_json(),
+    encode = "json",
+    body = list(
+      model = "gpt-3.5-turbo",
+      messages = list(list(
+        role = "user", 
+        content = prompt
+      ))
+    )
+  )
+  str_trim(content(response)$choices[[1]]$message$content)
+}
+
+correct_spelling <- function(text) {
+  prompt = paste("Correct the spelling of the following word, only returning the corrected word itself. All words refer to smells, so correct to a word that might be used to describe an odor or desribe a chemical:", text)
+  corrected_text <- ask_chatgpt(prompt)
+  return(corrected_text)
+}
+
+#Now check on a df
+df <- tibble(
+  words = c("speling", "korrect", "writting", "exmaple","menty")
+)
+
+df_corrected <- df %>%
+  mutate(corrected_words = map_chr(words, correct_spelling))
+
+head(df_corrected)
+```
+
+### Compare to a hand-corrected version
+```{r}
+EJM_spellcheck <- data_frame(word = c("perfumy", "mustyearthy", "menty", "buteric", "sulpher", "cinnamons", "vanallyn", 
+                                      "chemcal", "animatic", "butric", "chloine", "chorine", "searmint", "medicnal", "tanic", 
+                                      "grren", "spicey", "carmel", "diasiteal", "carmalized", "aromatica", "antaseptic",
+                                      "planty", "greeny", "alchohol", "pwder", "friuty", "sweey", "greenage", "acidiic", "saopy",
+                                      "liqour", "mente", "anaseed", "chrismas", "seasfood", "strng", "unplesent", "sublte", "moutwash",
+                                      "wintogreen", "fruty", "parfume", "vegatable", "overriped", "citronellaish", "sauekruat", "oinion",
+                                      "pungant", "cinammon", "unplesant", "anticeptic"),
+                             EJMfix = c("perfume", "musty earthy", "mint", "butyric", "sulphur", "cinnamon", "vanillin", 
+                                     "chemical", "animalic", "butyric", "chlorine", "chlorine", "spearmint", "medicinal", "tannic", 
+                                     "green", "spicy", "caramel", "diacetyl", "caramelized", "aromatic", "antiseptic",
+                                     "plant", "green", "alcohol", "powder", "fruity", "sweet", "green", "acidic", "soapy",
+                                     "liquor", "mint", "anise", "christmas", "seafood", "strong", "unpleasent", "subtle", "mouhtwash",
+                                     "wintergreen", "fruity", "perfume", "vegetable", "overripe", "citronella", "sauerkraut", "onion",
+                                     "pungent", "cinnamon", "unpleasant", "antiseptic"))
+
+#Note that putting your API calls in loops can be a bad idea, since you are spending money on each call. That said, the API is pretty cheap.
+
+# https://platform.openai.com/usage
+
+df_corrected2 <- EJM_spellcheck %>%
+  mutate(corrected_by_LLM = map_chr(word, correct_spelling))
+
+head(df_corrected2)
+
+```
