@@ -5,16 +5,7 @@ description: |
 author: "Joel Mainland"
 date: "`r Sys.Date()`"
 output:
-  html_document:
-    number_sections: false
-    toc: true
-    toc_float: true
-    fig_width: 7
-    fig_height: 4.5
-    theme: cosmo
-    highlight: tango
-    code_folding: hide
-  distill::distill_article:
+    distill::distill_article:
     self_contained: false
     toc: true
     toc_float: true
