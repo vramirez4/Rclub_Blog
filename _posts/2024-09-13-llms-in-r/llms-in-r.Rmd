@@ -44,7 +44,7 @@ pacman::p_load(tidyverse, readxl)
 
 #read in data
 
-FL_K_raw <- read_excel("data/raw/FL_KSU.xlsx", sheet=3)%>% select(-2) # %>% clean_names()
+FL_K_raw <- read_excel("data/raw/FL_KSU.xlsx", sheet=3) # %>% clean_names()
 
 ```
 
@@ -56,7 +56,7 @@ pacman::p_load(tidyverse, readxl, janitor)
 
 #read in data
 
-FL_K_raw <- read_excel("data/raw/FL_KSU.xlsx", sheet=3)%>% select(-2) %>% clean_names()
+FL_K_raw <- read_excel("data/raw/FL_KSU.xlsx", sheet=3) %>% clean_names()
 ```
 
 Add a comma after "readxl" and Copilot will suggest the `janitor` package.
