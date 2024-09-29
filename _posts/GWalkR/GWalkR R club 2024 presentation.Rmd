@@ -2,9 +2,8 @@
 title: "GWalkR_rclub"
 description:
   R Club Presentation on Sept. 20th 2024: GWalkR
-author:
-  -name: Liz Hamel
-date: "`r Sys.Date()`"
+author: "Liz Hamel"
+date: "9-20-24"
 output:
   distill::distill_article:
     self_contained: false
