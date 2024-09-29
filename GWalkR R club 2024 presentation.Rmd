@@ -1,0 +1,30 @@
+---
+title: "GWalkR_rclub"
+output: html_document
+date: "2024-09-20"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GwalkR is a Tableau-like package that allows you to visualize and compare data without the need for ggplot and long code paragraphs.
+## Plus it's free!
+
+# It is simple and only requires 2 lines of code. Though, you do need to process and preformat any data you would like to use. This package allows you to visualize data and export graphs.
+
+## If you would like further information, you can visit the GitHub page https://github.com/Kanaries/GWalkR
+
+# First Install the GWalkR package and load it
+```{r}
+# install.packages("GWalkR")
+library(GWalkR)
+```
+
+```{r}
+data(iris)
+gwalkr(iris)
+```
+
+
+
