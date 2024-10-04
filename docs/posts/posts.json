@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/GWalkR/",
+    "title": "GWalkR_rclub",
+    "description": "GWalkR",
+    "author": [
+      {
+        "name": "Liz Hamel",
+        "url": {}
+      }
+    ],
+    "date": "2024-09-20",
+    "categories": [],
+    "contents": "\r\nGwalkR is a Tableau-like package that allows you to visualize and compare data without the need for ggplot and long code paragraphs.\r\nPlus it’s free!\r\nIt is simple and only requires 2 lines of code. Though, you do need to process and preformat any data you would like to use. This package allows you to visualize data and export graphs.\r\nIf you would like further information, you can visit the GitHub page https://github.com/Kanaries/GWalkR\r\nFirst Install the GWalkR package and load it\r\n\r\n\r\n# install.packages(\"GWalkR\")\r\nlibrary(GWalkR)\r\n\r\n\r\n\r\n\r\ndata(iris)\r\ngwalkr(iris)\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2024-09-29T17:03:46-04:00",
+    "input_file": "GWalkR-R-club-2024-presentation.knit.md"
+  },
+  {
     "path": "posts/2024-09-13-llms-in-r/",
     "title": "LLMs in R",
     "description": "Using LLMs in R",
