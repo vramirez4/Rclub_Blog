@@ -1,0 +1,229 @@
+---
+title: 'LLMs in R with NaileR'
+description: |
+    This article provides an overview of the NaileR R package, which uses Large Language Models (LLMs) on local machines to interpret latent variables. It also introduces the ollamar package, which lets you run LLMs locally on your own machine.
+author: 
+  - name: Ha Nguyen 
+    url: https://github.com/thuhari
+date: "2024-11-01"
+output: 
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_float: true
+    fig_width: 7
+    fig_height: 4.5
+    theme: cosmo
+    highlight: tango
+    code_folding: hide
+    code_download: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# `NaileR` - Introduction
+
+[NaileR](https://cran.r-project.org/web/packages/NaileR/NaileR.pdf) is a a small R package designed for interpreting continuous or categorical latent variables, using Large Language Model (LLM) on local machines by Ollama API. You provide a data set with a latent variable you want to understand and some other explanatory variables. It provides **a description of the latent variable** based on the explanatory variables. It also provides a name to the latent variable. 'NaileR' uses convenience functions offered by the ['FactoMineR' package](https://cran.r-project.org/package=FactoMineR) (condes(), catdes(), descfreq()) in conjunction with the ['ollamar' package](https://cran.r-project.org/package=ollamar).
+
+> Sébastien Lê (2024). NaileR: *Interpreting Latent Variables with AI*. R package version 1.2.0, https://cran.r-project.org/web/packages/NaileR. Accessed 29 Oct. 2024.
+
+## Install and load R packages
+
+Install NaileR, ollamar from GitHub for the latest/development version with more features/bug fixes
+
+```{r install, eval=FALSE}
+install.packages("remotes")
+remotes::install_github("cran/NaileR")
+remotes::install_github("hauselin/ollamar")
+```
+
+Load pakages
+
+```{r load, eval=FALSE}
+if (!require("pacman")) install.packages("pacman") 
+pacman::p_load(tidyverse, readxl, 
+               FactoMineR, SensoMineR, NaileR, stringr, glue, ollamar, magrittr,
+               base64enc, crayon, glue, httr2, jsonlite, tibble)
+```
+
+NaileR imports: dplyr, stringr, glue, ollamar, magrittr, SensoMineR
+
+Ollamar imports: base64enc, crayon, glue, httr2, jsonlite, tibble
+
+# `ollamar` - Run LLMs on local machines
+
+The [Ollama R library](https://hauselin.github.io/ollama-r/) is the easiest way to integrate R with [Ollama](https://ollama.com/), which lets you run language models locally on your own machine.
+
+The library also makes it easy to work with data structures (e.g., conversational/chat histories) that are standard for different LLMs (such as those provided by OpenAI and Anthropic). It also lets you specify different output formats (e.g., dataframes, text/vector, lists) that best suit your need, allowing easy integration with other libraries/tools and parallelization via the `httr2` library.
+
+To use this R library, ensure the [Ollama](https://ollama.com/) app is installed. Ollama can use GPUs for accelerating LLM inference. See [Ollama GPU documentation](https://github.com/ollama/ollama/blob/main/docs/gpu.md) for more information.
+
+### Install and use Ollama library
+
+1.  Download and install Ollama from https://ollama.com/
+
+2.  Open/launch the Ollama app to start the local server
+
+3.  Load `ollamar` in R to connect to the Ollama local server
+
+4.  Download a LLM by running `pull("model name")`
+
+```{r ollamar, eval=FALSE}
+#library(ollamar)
+
+test_connection()  # test connection to Ollama server
+# if you see "Ollama local server not running or wrong server," Ollama app/server isn't running
+
+# download a model
+pull("llama3.2")  # download a model (equivalent bash code: ollama run llama3.2)
+pull("llama3") # NaileR run `llama3` by default, can change
+# list available models (models you've pulled/downloaded)
+list_models()
+
+# generate a response/text based on a prompt; returns an httr2 response by default
+resp <- generate("llama3.2", "tell me a 5-word story") 
+# get just the text from the response object
+resp_process(resp, "text")
+# get the text as a tibble dataframe
+resp_process(resp, "df")
+
+# alternatively, specify the output type when calling the function initially
+txt <- generate("llama3.2", "tell me a 5-word story", output = "text")
+txt
+```
+
+# Interpret latent variables of QDA data
+
+## Perfume data example
+
+12 perfumes were rated on 12 sensory attributes by 12 trained panelists in 2 sessions.
+
+```{r qda_data, eval=FALSE}
+# import data
+#library(readxl)
+qda_data <- read_excel(path = "data/perfumes_qda.xlsx")
+qda_data
+```
+
+```{r process qda_data, eval=FALSE}
+qda_data <- qda_data %>%
+  as.data.frame(qda_data) %>% # convert it into a data frame (for naming rows and SensoMineR)
+  mutate (Panelist = as.factor(Panelist),
+          Product = as.factor(Product)) # set factors
+str(qda_data)
+```
+
+## [Univariate analysis:]{.underline} Analysis of variance (ANOVA) on each attribute
+
+```{r decat, eval=FALSE}
+#library(SensoMineR)
+res_decat <- decat(qda_data,
+                  formul = "~Product+Panelist",
+                  firstvar = 5,
+                  graph = FALSE
+                  ) # DEscription of CATegories with ANOVA
+res_decat$adjmean
+```
+
+### [Sensory profile:]{.underline} Description of a perfume by important attributes
+
+```{r sensory profile, eval=FALSE}
+res_decat$resT$`Chanel N5`
+```
+
+| For the following perceptual attributes, this stimulus has been scored with rather *high* values compared to the average over all stimuli; attributes have been sorted from the most discriminative one to the less discriminative one: *Heady, Oriental, Wrapping, Spicy*. 
+| For the following perceptual attributes, this stimulus has been scored with rather *low* values compared to the average over all stimuli; attributes have been sorted from the most discriminative one to the less discriminative one: *Greedy, Fruity, Vanilla*.
+
+## [Multivarirate analysis:]{.underline} PCA (Principal Component Analysis) on the adjusted means data table
+
+```{r pca, eval=FALSE}
+res_pca <- PCA(res_decat$adjmean, graph = FALSE)
+plot.PCA(res_pca,choix = "ind") # graph of individual products
+plot.PCA(res_pca,choix = "var") # graph of attributes
+```
+
+## NaileR - Incorporate statistical results and LLMs
+
+#### Request 1: `Based on the results, please describe that particular stimulus according to its specific features. Then, based on these characteristics, give the stimulus a new name.`
+
+```{r nail_qda_1, eval=FALSE}
+#library(NaileR)
+intro_sensoperf <- "Twelve perfumes were measured according to sensory attributes by a trained panel. 
+I will give you the results from this study. 
+You will have to identify what sets these perfumes apart."
+intro_sensoperf <- gsub('\n', ' ', intro_sensoperf) |>
+  stringr::str_squish() # remove whitespace if any
+
+# default request: Based on the results, please describe that particular stimulus according to its specific features. Then, based on these characteristics, give the stimulus a new name.
+res_nail_qda_1 <- nail_qda(qda_data,
+                         formul="~Product+Panelist",
+                         firstvar = 5,
+                         introduction = intro_sensoperf,
+                         request = NULL, # default request
+                         model = 'llama3.2',
+                         isolate.groups = FALSE, #give the LLM a single prompt, or one prompt per product
+                         drop.negative = FALSE, #whether to drop negative v.test values for interpretation
+                         proba = 0.05,
+                         generate = TRUE) #generate the LLM response, otherwise, only returns the prompt
+cat(res_nail_qda_1$response)
+```
+
+Run this request again to check the consistency of a response from the model.
+
+```{r nail_qda_1_1, eval=FALSE}
+res_nail_qda_1_1 <- NaileR::nail_qda(qda_data,
+                         formul="~Product+Panelist",
+                         firstvar = 5,
+                         introduction = intro_sensoperf,
+                         request = NULL,
+                         model = 'llama3.2',
+                         isolate.groups = FALSE,
+                         drop.negative = FALSE,
+                         proba = 0.05,
+                         generate = TRUE)
+cat(res_nail_qda_1_1$response)
+```
+
+#### Request 2: `Please explain what makes each perfume distinct and provide a sensory profile of each perfume.`
+```{r nail_qda_2, eval=FALSE}
+req_sensoperf <- "Please explain what makes each perfume distinct
+and provide a sensory profile of each perfume"
+req_sensoperf <- gsub('\n', ' ', req_sensoperf) |>
+  stringr::str_squish()
+
+res_nail_qda_2 <- NaileR::nail_qda(qda_data,
+                         formul="~Product+Panelist",
+                         firstvar = 5,
+                         introduction = intro_sensoperf,
+                         request = req_sensoperf,
+                         model = 'llama3.2',
+                         isolate.groups = FALSE,
+                         drop.negative = FALSE,
+                         proba = 0.05,
+                         generate = TRUE)
+cat(res_nail_qda_2$response)
+```
+
+#### Request 3: `Please explain what make groups of perfumes distinct and provide description of each group`
+```{r nail_qda_3, eval=FALSE}
+req_sensoperf_3 <- "Please explain what make groups of perfumes distinct
+and provide  description of each group"
+req_sensoperf_3 <- gsub('\n', ' ', req_sensoperf_3) |>
+  stringr::str_squish()
+
+res_nail_qda_3 <- NaileR::nail_qda(qda_data,
+                         formul="~Product+Panelist",
+                         firstvar = 5,
+                         introduction = intro_sensoperf,
+                         request = req_sensoperf_3,
+                         model = 'llama3.2',
+                         isolate.groups = FALSE,
+                         drop.negative = FALSE,
+                         proba = 0.05,
+                         generate = TRUE)
+cat(res_nail_qda_3$response)
+```
+
+`Others: nail_catdes, nail_condes, nail_descfreq, nail_sort, nail_textual`
