@@ -30,18 +30,12 @@ library(timetk)
 library(tidymodels)
 library(modeltime)
 library(workflowsets)
+library(lubridate)
 
 
 # monthly_milk_consume was simulated based on the USDA report
-
-set.seed(123)  # Set seed for reproducibility
-dates <- seq.Date(from = as.Date("2015-09-01"), to = as.Date("2024-11-01"), by = "month")
-
-# Generate random milk consumption values between 4000 and 6000 for each date
-monthly_milk_consume <- sample(3500:6000, size = length(dates), replace = TRUE)
-
-# Create data frame
-df <- data.frame(date = dates, monthly_milk_consume = monthly_milk_consume)
+df <- read.csv("data/data.csv")
+df$date <- as.Date(df$date)
 
 plot_time_series(df,date, monthly_milk_consume, .interactive = TRUE)
 
