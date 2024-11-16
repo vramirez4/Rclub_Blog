@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Time Series Machine Learning (TSML) using modeltime pakcage</title>
+
+  <meta property="description" itemprop="description" content="Time Series Machine Learning (TSML) is a specialized field that focuses on analyzing and predicting data points collected over time. It leverages patterns like trends, seasonality, and temporal dependencies to make accurate forecasts and detect anomalies. TSML combines traditional statistical methods like ARIMA with modern machine learning techniques such as LSTMs and Transformers, making it highly versatile. It plays a critical role in various industries, including finance, healthcare, and energy, enabling better decision-making and process optimization through temporal data analysis.|"/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2024-11-15"/>
+  <meta property="article:created" itemprop="dateCreated" content="2024-11-15"/>
+  <meta name="article:author" content="Cailu Lin"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Time Series Machine Learning (TSML) using modeltime pakcage"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="Time Series Machine Learning (TSML) is a specialized field that focuses on analyzing and predicting data points collected over time. It leverages patterns like trends, seasonality, and temporal dependencies to make accurate forecasts and detect anomalies. TSML combines traditional statistical methods like ARIMA with modern machine learning techniques such as LSTMs and Transformers, making it highly versatile. It plays a critical role in various industries, including finance, healthcare, and energy, enabling better decision-making and process optimization through temporal data analysis.|"/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Time Series Machine Learning (TSML) using modeltime pakcage"/>
+  <meta property="twitter:description" content="Time Series Machine Learning (TSML) is a specialized field that focuses on analyzing and predicting data points collected over time. It leverages patterns like trends, seasonality, and temporal dependencies to make accurate forecasts and detect anomalies. TSML combines traditional statistical methods like ARIMA with modern machine learning techniques such as LSTMs and Transformers, making it highly versatile. It plays a critical role in various industries, including finance, healthcare, and energy, enabling better decision-making and process optimization through temporal data analysis.|"/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Time Series Machine Learning (TSML) using modeltime pakcage"]},{"type":"character","attributes":{},"value":["Time Series Machine Learning (TSML) is a specialized field that focuses on analyzing and predicting data points collected over time. It leverages patterns like trends, seasonality, and temporal dependencies to make accurate forecasts and detect anomalies. TSML combines traditional statistical methods like ARIMA with modern machine learning techniques such as LSTMs and Transformers, making it highly versatile. It plays a critical role in various industries, including finance, healthcare, and energy, enabling better decision-making and process optimization through temporal data analysis.|"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Cailu Lin"]},{"type":"character","attributes":{},"value":["https://github.com/Cailu086Lin"]},{"type":"character","attributes":{},"value":["Monell RClub"]},{"type":"character","attributes":{},"value":["https://vramirez4.github.io/Rclub_Blog/"]}]}]},{"type":"character","attributes":{},"value":["2024-11-15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc","toc_float","fig_width","fig_height","theme","highlight","code_folding","code_download"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]},{"type":"integer","attributes":{},"value":[7]},{"type":"double","attributes":{},"value":[4.5]},{"type":"character","attributes":{},"value":["cosmo"]},{"type":"character","attributes":{},"value":["tango"]},{"type":"character","attributes":{},"value":["hide"]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["2024-11-15-TSML_modeltime_files/anchor-4.2.2/anchor.min.js","2024-11-15-TSML_modeltime_files/bowser-1.9.3/bowser.min.js","2024-11-15-TSML_modeltime_files/distill-2.2.21/template.v2.js","2024-11-15-TSML_modeltime_files/figure-html5/packages data-2.png","2024-11-15-TSML_modeltime_files/header-attrs-2.29/header-attrs.js","2024-11-15-TSML_modeltime_files/jquery-3.6.0/jquery-3.6.0.js","2024-11-15-TSML_modeltime_files/jquery-3.6.0/jquery-3.6.0.min.js","2024-11-15-TSML_modeltime_files/jquery-3.6.0/jquery-3.6.0.min.map","2024-11-15-TSML_modeltime_files/popper-2.6.0/popper.min.js","2024-11-15-TSML_modeltime_files/tippy-6.2.7/tippy-bundle.umd.min.js","2024-11-15-TSML_modeltime_files/tippy-6.2.7/tippy-light-border.css","2024-11-15-TSML_modeltime_files/tippy-6.2.7/tippy.css","2024-11-15-TSML_modeltime_files/tippy-6.2.7/tippy.umd.min.js","2024-11-15-TSML_modeltime_files/webcomponents-2.0.0/webcomponents.js"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+    font-size: 100%;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  hr.section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px;
+  }
+
+
+  d-byline {
+    border-top: none;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+    border-top: none;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  /* tweak for Pandoc numbered line within distill */
+  d-article pre.numberSource code > span {
+      left: -2em;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // separator
+    var separator = '<hr class="section-separator" style="clear: both"/>';
+    // prepend separator above appendix
+    $('.d-byline').before(separator);
+    $('.d-article').before(separator);
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme, except when numbering line
+    // in code chunk
+    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        var author_name = front_matter.authors[i].author
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="2024-11-15-TSML_modeltime_files/header-attrs-2.29/header-attrs.js"></script>
+  <link href="2024-11-15-TSML_modeltime_files/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+  <script src="2024-11-15-TSML_modeltime_files/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+  <script src="2024-11-15-TSML_modeltime_files/plotly-binding-4.10.4/plotly.js"></script>
+  <script src="2024-11-15-TSML_modeltime_files/typedarray-0.1/typedarray.min.js"></script>
+  <script src="2024-11-15-TSML_modeltime_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <link href="2024-11-15-TSML_modeltime_files/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+  <script src="2024-11-15-TSML_modeltime_files/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+  <link href="2024-11-15-TSML_modeltime_files/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+  <script src="2024-11-15-TSML_modeltime_files/plotly-main-2.11.1/plotly-latest.min.js"></script>
+  <script src="2024-11-15-TSML_modeltime_files/popper-2.6.0/popper.min.js"></script>
+  <link href="2024-11-15-TSML_modeltime_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="2024-11-15-TSML_modeltime_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="2024-11-15-TSML_modeltime_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="2024-11-15-TSML_modeltime_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="2024-11-15-TSML_modeltime_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="2024-11-15-TSML_modeltime_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="2024-11-15-TSML_modeltime_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Time Series Machine Learning (TSML) using modeltime pakcage","description":"Time Series Machine Learning (TSML) is a specialized field that focuses on analyzing and predicting data points collected over time. It leverages patterns like trends, seasonality, and temporal dependencies to make accurate forecasts and detect anomalies. TSML combines traditional statistical methods like ARIMA with modern machine learning techniques such as LSTMs and Transformers, making it highly versatile. It plays a critical role in various industries, including finance, healthcare, and energy, enabling better decision-making and process optimization through temporal data analysis.|","authors":[{"author":"Cailu Lin","authorURL":"https://github.com/Cailu086Lin","affiliation":"Monell RClub","affiliationURL":"https://vramirez4.github.io/Rclub_Blog/","orcidID":""}],"publishedDate":"2024-11-15T00:00:00.000-05:00","citationText":"Lin, 2024"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Time Series Machine Learning (TSML) using modeltime pakcage</h1>
+
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p>Time Series Machine Learning (TSML) is a specialized field that focuses on analyzing and predicting data points collected over time. It leverages patterns like trends, seasonality, and temporal dependencies to make accurate forecasts and detect anomalies. TSML combines traditional statistical methods like ARIMA with modern machine learning techniques such as LSTMs and Transformers, making it highly versatile. It plays a critical role in various industries, including finance, healthcare, and energy, enabling better decision-making and process optimization through temporal data analysis.|</p>
+</div>
+
+<div class="d-byline">
+  Cailu Lin <a href="https://github.com/Cailu086Lin" class="uri">https://github.com/Cailu086Lin</a> (Monell RClub)<a href="https://vramirez4.github.io/Rclub_Blog/" class="uri">https://vramirez4.github.io/Rclub_Blog/</a>
+  
+<br/>2024-11-15
+</div>
+
+<div class="d-article">
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#packages and data</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://business-science.github.io/tidyquant/'>tidyquant</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/timetk'>timetk</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidymodels.tidymodels.org'>tidymodels</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/modeltime'>modeltime</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/tidymodels/workflowsets'>workflowsets</a></span><span class='op'>)</span></span>
+<span></span>
+<span></span>
+<span><span class='co'># monthly_milk_consume was simulated based on the USDA report</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>123</span><span class='op'>)</span>  <span class='co'># Set seed for reproducibility</span></span>
+<span><span class='va'>dates</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.Date.html'>seq.Date</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2015-09-01"</span><span class='op'>)</span>, to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2024-11-01"</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='st'>"month"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Generate random milk consumption values between 4000 and 6000 for each date</span></span>
+<span><span class='va'>monthly_milk_consume</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>3500</span><span class='op'>:</span><span class='fl'>6000</span>, size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>dates</span><span class='op'>)</span>, replace <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'># Create data frame</span></span>
+<span><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>date <span class='op'>=</span> <span class='va'>dates</span>, monthly_milk_consume <span class='op'>=</span> <span class='va'>monthly_milk_consume</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'><a href='https://rdrr.io/pkg/timetk/man/plot_time_series.html'>plot_time_series</a></span><span class='op'>(</span><span class='va'>df</span>,<span class='va'>date</span>, <span class='va'>monthly_milk_consume</span>, .interactive <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-35d988c6e12f4c52b7f3" style="width:672px;height:432px;"></div>
+<script type="application/json" data-for="htmlwidget-35d988c6e12f4c52b7f3">{"x":{"data":[{"x":["2015-09-01","2015-10-01","2015-11-01","2015-12-01","2016-01-01","2016-02-01","2016-03-01","2016-04-01","2016-05-01","2016-06-01","2016-07-01","2016-08-01","2016-09-01","2016-10-01","2016-11-01","2016-12-01","2017-01-01","2017-02-01","2017-03-01","2017-04-01","2017-05-01","2017-06-01","2017-07-01","2017-08-01","2017-09-01","2017-10-01","2017-11-01","2017-12-01","2018-01-01","2018-02-01","2018-03-01","2018-04-01","2018-05-01","2018-06-01","2018-07-01","2018-08-01","2018-09-01","2018-10-01","2018-11-01","2018-12-01","2019-01-01","2019-02-01","2019-03-01","2019-04-01","2019-05-01","2019-06-01","2019-07-01","2019-08-01","2019-09-01","2019-10-01","2019-11-01","2019-12-01","2020-01-01","2020-02-01","2020-03-01","2020-04-01","2020-05-01","2020-06-01","2020-07-01","2020-08-01","2020-09-01","2020-10-01","2020-11-01","2020-12-01","2021-01-01","2021-02-01","2021-03-01","2021-04-01","2021-05-01","2021-06-01","2021-07-01","2021-08-01","2021-09-01","2021-10-01","2021-11-01","2021-12-01","2022-01-01","2022-02-01","2022-03-01","2022-04-01","2022-05-01","2022-06-01","2022-07-01","2022-08-01","2022-09-01","2022-10-01","2022-11-01","2022-12-01","2023-01-01","2023-02-01","2023-03-01","2023-04-01","2023-05-01","2023-06-01","2023-07-01","2023-08-01","2023-09-01","2023-10-01","2023-11-01","2023-12-01","2024-01-01","2024-02-01","2024-03-01","2024-04-01","2024-05-01","2024-06-01","2024-07-01","2024-08-01","2024-09-01","2024-10-01","2024-11-01"],"y":[5962,5726,4025,3694,5341,4641,4752,4767,4537,4164,5126,4510,4614,4452,3847,4516,5512,4878,5573,4949,5172,5289,3710,5113,4054,5394,3872,4666,5298,4404,5365,4546,3808,4747,3665,3716,4813,5619,4087,5098,3640,4221,3652,3793,3776,4986,3540,5978,5637,3815,4682,4251,3873,5341,5532,5581,4015,3512,5616,5537,5418,4254,5956,4831,4612,4505,5838,4947,4170,5668,4633,4587,5006,5433,5000,3979,5614,5413,5370,4608,3664,4574,4885,5783,4109,5877,3626,5759,4185,5481,4430,5790,4346,4482,4118,5426,3976,5498,3650,5137,5707,5702,5973,4528,3825,5455,4761,5287,4862,4484,5586],"text":["date: 2015-09-01<br />.value: 5962","date: 2015-10-01<br />.value: 5726","date: 2015-11-01<br />.value: 4025","date: 2015-12-01<br />.value: 3694","date: 2016-01-01<br />.value: 5341","date: 2016-02-01<br />.value: 4641","date: 2016-03-01<br />.value: 4752","date: 2016-04-01<br />.value: 4767","date: 2016-05-01<br />.value: 4537","date: 2016-06-01<br />.value: 4164","date: 2016-07-01<br />.value: 5126","date: 2016-08-01<br />.value: 4510","date: 2016-09-01<br />.value: 4614","date: 2016-10-01<br />.value: 4452","date: 2016-11-01<br />.value: 3847","date: 2016-12-01<br />.value: 4516","date: 2017-01-01<br />.value: 5512","date: 2017-02-01<br />.value: 4878","date: 2017-03-01<br />.value: 5573","date: 2017-04-01<br />.value: 4949","date: 2017-05-01<br />.value: 5172","date: 2017-06-01<br />.value: 5289","date: 2017-07-01<br />.value: 3710","date: 2017-08-01<br />.value: 5113","date: 2017-09-01<br />.value: 4054","date: 2017-10-01<br />.value: 5394","date: 2017-11-01<br />.value: 3872","date: 2017-12-01<br />.value: 4666","date: 2018-01-01<br />.value: 5298","date: 2018-02-01<br />.value: 4404","date: 2018-03-01<br />.value: 5365","date: 2018-04-01<br />.value: 4546","date: 2018-05-01<br />.value: 3808","date: 2018-06-01<br />.value: 4747","date: 2018-07-01<br />.value: 3665","date: 2018-08-01<br />.value: 3716","date: 2018-09-01<br />.value: 4813","date: 2018-10-01<br />.value: 5619","date: 2018-11-01<br />.value: 4087","date: 2018-12-01<br />.value: 5098","date: 2019-01-01<br />.value: 3640","date: 2019-02-01<br />.value: 4221","date: 2019-03-01<br />.value: 3652","date: 2019-04-01<br />.value: 3793","date: 2019-05-01<br />.value: 3776","date: 2019-06-01<br />.value: 4986","date: 2019-07-01<br />.value: 3540","date: 2019-08-01<br />.value: 5978","date: 2019-09-01<br />.value: 5637","date: 2019-10-01<br />.value: 3815","date: 2019-11-01<br />.value: 4682","date: 2019-12-01<br />.value: 4251","date: 2020-01-01<br />.value: 3873","date: 2020-02-01<br />.value: 5341","date: 2020-03-01<br />.value: 5532","date: 2020-04-01<br />.value: 5581","date: 2020-05-01<br />.value: 4015","date: 2020-06-01<br />.value: 3512","date: 2020-07-01<br />.value: 5616","date: 2020-08-01<br />.value: 5537","date: 2020-09-01<br />.value: 5418","date: 2020-10-01<br />.value: 4254","date: 2020-11-01<br />.value: 5956","date: 2020-12-01<br />.value: 4831","date: 2021-01-01<br />.value: 4612","date: 2021-02-01<br />.value: 4505","date: 2021-03-01<br />.value: 5838","date: 2021-04-01<br />.value: 4947","date: 2021-05-01<br />.value: 4170","date: 2021-06-01<br />.value: 5668","date: 2021-07-01<br />.value: 4633","date: 2021-08-01<br />.value: 4587","date: 2021-09-01<br />.value: 5006","date: 2021-10-01<br />.value: 5433","date: 2021-11-01<br />.value: 5000","date: 2021-12-01<br />.value: 3979","date: 2022-01-01<br />.value: 5614","date: 2022-02-01<br />.value: 5413","date: 2022-03-01<br />.value: 5370","date: 2022-04-01<br />.value: 4608","date: 2022-05-01<br />.value: 3664","date: 2022-06-01<br />.value: 4574","date: 2022-07-01<br />.value: 4885","date: 2022-08-01<br />.value: 5783","date: 2022-09-01<br />.value: 4109","date: 2022-10-01<br />.value: 5877","date: 2022-11-01<br />.value: 3626","date: 2022-12-01<br />.value: 5759","date: 2023-01-01<br />.value: 4185","date: 2023-02-01<br />.value: 5481","date: 2023-03-01<br />.value: 4430","date: 2023-04-01<br />.value: 5790","date: 2023-05-01<br />.value: 4346","date: 2023-06-01<br />.value: 4482","date: 2023-07-01<br />.value: 4118","date: 2023-08-01<br />.value: 5426","date: 2023-09-01<br />.value: 3976","date: 2023-10-01<br />.value: 5498","date: 2023-11-01<br />.value: 3650","date: 2023-12-01<br />.value: 5137","date: 2024-01-01<br />.value: 5707","date: 2024-02-01<br />.value: 5702","date: 2024-03-01<br />.value: 5973","date: 2024-04-01<br />.value: 4528","date: 2024-05-01<br />.value: 3825","date: 2024-06-01<br />.value: 5455","date: 2024-07-01<br />.value: 4761","date: 2024-08-01<br />.value: 5287","date: 2024-09-01<br />.value: 4862","date: 2024-10-01<br />.value: 4484","date: 2024-11-01<br />.value: 5586"],"type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(44,62,80,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":["2015-09-01","2015-10-01","2015-11-01","2015-12-01","2016-01-01","2016-02-01","2016-03-01","2016-04-01","2016-05-01","2016-06-01","2016-07-01","2016-08-01","2016-09-01","2016-10-01","2016-11-01","2016-12-01","2017-01-01","2017-02-01","2017-03-01","2017-04-01","2017-05-01","2017-06-01","2017-07-01","2017-08-01","2017-09-01","2017-10-01","2017-11-01","2017-12-01","2018-01-01","2018-02-01","2018-03-01","2018-04-01","2018-05-01","2018-06-01","2018-07-01","2018-08-01","2018-09-01","2018-10-01","2018-11-01","2018-12-01","2019-01-01","2019-02-01","2019-03-01","2019-04-01","2019-05-01","2019-06-01","2019-07-01","2019-08-01","2019-09-01","2019-10-01","2019-11-01","2019-12-01","2020-01-01","2020-02-01","2020-03-01","2020-04-01","2020-05-01","2020-06-01","2020-07-01","2020-08-01","2020-09-01","2020-10-01","2020-11-01","2020-12-01","2021-01-01","2021-02-01","2021-03-01","2021-04-01","2021-05-01","2021-06-01","2021-07-01","2021-08-01","2021-09-01","2021-10-01","2021-11-01","2021-12-01","2022-01-01","2022-02-01","2022-03-01","2022-04-01","2022-05-01","2022-06-01","2022-07-01","2022-08-01","2022-09-01","2022-10-01","2022-11-01","2022-12-01","2023-01-01","2023-02-01","2023-03-01","2023-04-01","2023-05-01","2023-06-01","2023-07-01","2023-08-01","2023-09-01","2023-10-01","2023-11-01","2023-12-01","2024-01-01","2024-02-01","2024-03-01","2024-04-01","2024-05-01","2024-06-01","2024-07-01","2024-08-01","2024-09-01","2024-10-01","2024-11-01"],"y":[4990.595757475653,4963.6659766089979,4937.5419677134087,4912.2126205177692,4887.666824750966,4863.8934701418793,4840.8814464193974,4818.6196433124014,4797.0969505497778,4776.3022578604114,4756.2244549731831,4736.8524316169833,4718.1750775206901,4700.1812824131903,4682.895448100875,4666.3595628473677,4650.5888960673965,4635.5987171756924,4621.4042955869872,4608.0209007160111,4595.4638019774929,4583.7482687861657,4572.8895705567575,4562.902976704001,4553.8037566426256,4545.6071797873619,4538.3285155529411,4531.9830333540922,4526.2036174382301,4520.6715132813179,4515.4745321409064,4510.7004852745486,4506.4371839397982,4502.7724393942071,4499.7940628953293,4497.5898657007174,4496.2476590679225,4495.8552542544985,4496.5004625179999,4498.271095115977,4501.2549633059834,4505.5398783455721,4512.4744957298744,4523.0024647590353,4536.604087398121,4552.7596656122041,4570.9495013663536,4590.6538966256394,4611.3531533551304,4632.5275735198966,4653.6574590850078,4674.2231120155338,4693.7048342765447,4711.5829278331103,4727.3376946502985,4740.4494366931804,4753.1162884101668,4767.6299372745671,4783.6110147887903,4800.680152455252,4818.4579817763642,4836.5651342545398,4854.6222413921932,4872.2499346917375,4889.0688456555827,4904.6996057861452,4918.7628465858361,4930.8791995570673,4940.6692962022535,4947.7537680238092,4952.2900902507363,4954.8753350726629,4955.7895294329228,4955.3127002748597,4953.7248745418119,4951.3060791771213,4948.3363411241271,4945.0956873261684,4941.8641447265863,4938.9217402687191,4936.5485008959085,4935.024453551493,4934.6296251788126,4935.6440427212092,4937.1930667673932,4938.255400101456,4938.891082959798,4939.1601555788275,4939.1226581949468,4938.838631044563,4938.3681143640779,4937.7711483898975,4937.1077733584252,4936.4380295060664,4935.8219570692254,4935.3195962843056,4934.9909873877132,4934.8961706158516,4935.0443564389825,4935.38413944271,4935.8846360364596,4936.5149626296497,4937.2442356317015,4938.0415714520414,4938.876086500085,4939.7168971852589,4940.5331199169814,4941.2938711046763,4941.968267157763,4942.525424485666,4942.9344594978065],"text":["date: 2015-09-01<br />.value_smooth: 4990.596","date: 2015-10-01<br />.value_smooth: 4963.666","date: 2015-11-01<br />.value_smooth: 4937.542","date: 2015-12-01<br />.value_smooth: 4912.213","date: 2016-01-01<br />.value_smooth: 4887.667","date: 2016-02-01<br />.value_smooth: 4863.893","date: 2016-03-01<br />.value_smooth: 4840.881","date: 2016-04-01<br />.value_smooth: 4818.620","date: 2016-05-01<br />.value_smooth: 4797.097","date: 2016-06-01<br />.value_smooth: 4776.302","date: 2016-07-01<br />.value_smooth: 4756.224","date: 2016-08-01<br />.value_smooth: 4736.852","date: 2016-09-01<br />.value_smooth: 4718.175","date: 2016-10-01<br />.value_smooth: 4700.181","date: 2016-11-01<br />.value_smooth: 4682.895","date: 2016-12-01<br />.value_smooth: 4666.360","date: 2017-01-01<br />.value_smooth: 4650.589","date: 2017-02-01<br />.value_smooth: 4635.599","date: 2017-03-01<br />.value_smooth: 4621.404","date: 2017-04-01<br />.value_smooth: 4608.021","date: 2017-05-01<br />.value_smooth: 4595.464","date: 2017-06-01<br />.value_smooth: 4583.748","date: 2017-07-01<br />.value_smooth: 4572.890","date: 2017-08-01<br />.value_smooth: 4562.903","date: 2017-09-01<br />.value_smooth: 4553.804","date: 2017-10-01<br />.value_smooth: 4545.607","date: 2017-11-01<br />.value_smooth: 4538.329","date: 2017-12-01<br />.value_smooth: 4531.983","date: 2018-01-01<br />.value_smooth: 4526.204","date: 2018-02-01<br />.value_smooth: 4520.672","date: 2018-03-01<br />.value_smooth: 4515.475","date: 2018-04-01<br />.value_smooth: 4510.700","date: 2018-05-01<br />.value_smooth: 4506.437","date: 2018-06-01<br />.value_smooth: 4502.772","date: 2018-07-01<br />.value_smooth: 4499.794","date: 2018-08-01<br />.value_smooth: 4497.590","date: 2018-09-01<br />.value_smooth: 4496.248","date: 2018-10-01<br />.value_smooth: 4495.855","date: 2018-11-01<br />.value_smooth: 4496.500","date: 2018-12-01<br />.value_smooth: 4498.271","date: 2019-01-01<br />.value_smooth: 4501.255","date: 2019-02-01<br />.value_smooth: 4505.540","date: 2019-03-01<br />.value_smooth: 4512.474","date: 2019-04-01<br />.value_smooth: 4523.002","date: 2019-05-01<br />.value_smooth: 4536.604","date: 2019-06-01<br />.value_smooth: 4552.760","date: 2019-07-01<br />.value_smooth: 4570.950","date: 2019-08-01<br />.value_smooth: 4590.654","date: 2019-09-01<br />.value_smooth: 4611.353","date: 2019-10-01<br />.value_smooth: 4632.528","date: 2019-11-01<br />.value_smooth: 4653.657","date: 2019-12-01<br />.value_smooth: 4674.223","date: 2020-01-01<br />.value_smooth: 4693.705","date: 2020-02-01<br />.value_smooth: 4711.583","date: 2020-03-01<br />.value_smooth: 4727.338","date: 2020-04-01<br />.value_smooth: 4740.449","date: 2020-05-01<br />.value_smooth: 4753.116","date: 2020-06-01<br />.value_smooth: 4767.630","date: 2020-07-01<br />.value_smooth: 4783.611","date: 2020-08-01<br />.value_smooth: 4800.680","date: 2020-09-01<br />.value_smooth: 4818.458","date: 2020-10-01<br />.value_smooth: 4836.565","date: 2020-11-01<br />.value_smooth: 4854.622","date: 2020-12-01<br />.value_smooth: 4872.250","date: 2021-01-01<br />.value_smooth: 4889.069","date: 2021-02-01<br />.value_smooth: 4904.700","date: 2021-03-01<br />.value_smooth: 4918.763","date: 2021-04-01<br />.value_smooth: 4930.879","date: 2021-05-01<br />.value_smooth: 4940.669","date: 2021-06-01<br />.value_smooth: 4947.754","date: 2021-07-01<br />.value_smooth: 4952.290","date: 2021-08-01<br />.value_smooth: 4954.875","date: 2021-09-01<br />.value_smooth: 4955.790","date: 2021-10-01<br />.value_smooth: 4955.313","date: 2021-11-01<br />.value_smooth: 4953.725","date: 2021-12-01<br />.value_smooth: 4951.306","date: 2022-01-01<br />.value_smooth: 4948.336","date: 2022-02-01<br />.value_smooth: 4945.096","date: 2022-03-01<br />.value_smooth: 4941.864","date: 2022-04-01<br />.value_smooth: 4938.922","date: 2022-05-01<br />.value_smooth: 4936.549","date: 2022-06-01<br />.value_smooth: 4935.024","date: 2022-07-01<br />.value_smooth: 4934.630","date: 2022-08-01<br />.value_smooth: 4935.644","date: 2022-09-01<br />.value_smooth: 4937.193","date: 2022-10-01<br />.value_smooth: 4938.255","date: 2022-11-01<br />.value_smooth: 4938.891","date: 2022-12-01<br />.value_smooth: 4939.160","date: 2023-01-01<br />.value_smooth: 4939.123","date: 2023-02-01<br />.value_smooth: 4938.839","date: 2023-03-01<br />.value_smooth: 4938.368","date: 2023-04-01<br />.value_smooth: 4937.771","date: 2023-05-01<br />.value_smooth: 4937.108","date: 2023-06-01<br />.value_smooth: 4936.438","date: 2023-07-01<br />.value_smooth: 4935.822","date: 2023-08-01<br />.value_smooth: 4935.320","date: 2023-09-01<br />.value_smooth: 4934.991","date: 2023-10-01<br />.value_smooth: 4934.896","date: 2023-11-01<br />.value_smooth: 4935.044","date: 2023-12-01<br />.value_smooth: 4935.384","date: 2024-01-01<br />.value_smooth: 4935.885","date: 2024-02-01<br />.value_smooth: 4936.515","date: 2024-03-01<br />.value_smooth: 4937.244","date: 2024-04-01<br />.value_smooth: 4938.042","date: 2024-05-01<br />.value_smooth: 4938.876","date: 2024-06-01<br />.value_smooth: 4939.717","date: 2024-07-01<br />.value_smooth: 4940.533","date: 2024-08-01<br />.value_smooth: 4941.294","date: 2024-09-01<br />.value_smooth: 4941.968","date: 2024-10-01<br />.value_smooth: 4942.525","date: 2024-11-01<br />.value_smooth: 4942.934"],"type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(51,102,255,1)","dash":"solid"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":44.899036022323692,"r":7.3059360730593621,"b":26.707255200405889,"l":34.337899543379002},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(44,62,80,1)","family":"","size":14.611872146118724},"title":{"text":"Time Series Plot","font":{"color":"rgba(44,62,80,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"date","autorange":true,"range":["2015-03-17","2025-04-17"],"tickmode":"auto","ticktext":["2016","2018","2020","2022","2024"],"tickvals":[16801,17532,18262,18993,19723],"categoryorder":"array","categoryarray":["2016","2018","2020","2022","2024"],"nticks":null,"ticks":"outside","tickcolor":"rgba(204,204,204,1)","ticklen":3.6529680365296811,"tickwidth":0.22139200221392005,"showticklabels":true,"tickfont":{"color":"rgba(44,62,80,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.22139200221392005,"zeroline":false,"anchor":"y","title":{"text":"","font":{"color":"rgba(44,62,80,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":true,"range":[3388.6999999999998,6101.3000000000002],"tickmode":"auto","ticktext":["3500","4000","4500","5000","5500","6000"],"tickvals":[3500,4000,4500,5000,5500,6000],"categoryorder":"array","categoryarray":["3500","4000","4500","5000","5500","6000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(204,204,204,1)","ticklen":3.6529680365296811,"tickwidth":0.22139200221392005,"showticklabels":true,"tickfont":{"color":"rgba(44,62,80,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.22139200221392005,"zeroline":false,"anchor":"x","title":{"text":"","font":{"color":"rgba(44,62,80,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(44,62,80,1)","width":0.33208800332088001,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(44,62,80,1)","family":"","size":11.68949771689498}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"936973497a297":{"x":{},"y":{},"type":"scatter"},"9369788ae11d":{"x":{},"y":{}}},"cur_data":"936973497a297","visdat":{"936973497a297":["function (y) ","x"],"9369788ae11d":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#Splitting data</span></span>
+<span><span class='va'>split</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='va'>df</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/pkg/timetk/man/time_series_split.html'>time_series_split</a></span><span class='op'>(</span>assess <span class='op'>=</span> <span class='st'>"1 year"</span>, </span>
+<span>                    cumulative <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>df_train</span> <span class='op'>&lt;-</span> <span class='fu'>training</span><span class='op'>(</span><span class='va'>split</span><span class='op'>)</span></span>
+<span><span class='va'>df_test</span> <span class='op'>&lt;-</span> <span class='fu'>testing</span><span class='op'>(</span><span class='va'>split</span><span class='op'>)</span></span>
+<span></span>
+<span></span>
+<span><span class='co'>#Time series cross validation for tuning</span></span>
+<span></span>
+<span><span class='va'>df_folds</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/timetk/man/time_series_cv.html'>time_series_cv</a></span><span class='op'>(</span><span class='va'>df_train</span>,</span>
+<span>                           initial <span class='op'>=</span> <span class='fl'>77</span>, </span>
+<span>                           assess <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span></span>
+<span></span>
+<span></span>
+<span><span class='co'>#Preprocessing </span></span>
+<span><span class='va'>rec</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='fu'>recipe</span><span class='op'>(</span><span class='va'>monthly_milk_consume</span> <span class='op'>~</span> <span class='va'>date</span>, data <span class='op'>=</span> <span class='va'>df_train</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>step_mutate</span><span class='op'>(</span>date_num <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>step_date</span><span class='op'>(</span><span class='va'>date</span>, features <span class='op'>=</span> <span class='st'>"month"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>step_dummy</span><span class='op'>(</span><span class='va'>date_month</span>, one_hot <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>step_normalize</span><span class='op'>(</span><span class='fu'>all_numeric_predictors</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span></span>
+<span><span class='va'>rec</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>prep</span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>bake</span><span class='op'>(</span>new_data <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/view.html'>view</a></span><span class='op'>(</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'>#Model (ARIMA=Auto-Regressive Integrated Moving Average)</span></span>
+<span></span>
+<span><span class='va'>mod</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='fu'><a href='https://business-science.github.io/modeltime/reference/arima_boost.html'>arima_boost</a></span><span class='op'>(</span></span>
+<span>    min_n <span class='op'>=</span> <span class='fu'>tune</span><span class='op'>(</span><span class='op'>)</span>,</span>
+<span>    learn_rate <span class='op'>=</span> <span class='fu'>tune</span><span class='op'>(</span><span class='op'>)</span>,</span>
+<span>    trees <span class='op'>=</span> <span class='fu'>tune</span><span class='op'>(</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'>set_engine</span><span class='op'>(</span>engine <span class='op'>=</span> <span class='st'>"auto_arima_xgboost"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'>#Workflow set</span></span>
+<span><span class='va'>wflow_mod</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='fu'><a href='https://workflowsets.tidymodels.org/reference/workflow_set.html'>workflow_set</a></span><span class='op'>(</span></span>
+<span>    preproc <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>rec <span class='op'>=</span> <span class='va'>rec</span><span class='op'>)</span>,</span>
+<span>    models <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>mod <span class='op'>=</span> <span class='va'>mod</span><span class='op'>)</span></span>
+<span>  <span class='op'>)</span> </span>
+<span></span>
+<span></span>
+<span><span class='co'>#Tuning and evaluating the model on all the samples</span></span>
+<span><span class='va'>grid_ctrl</span> <span class='op'>&lt;-</span></span>
+<span>  <span class='fu'>control_grid</span><span class='op'>(</span></span>
+<span>    save_pred <span class='op'>=</span> <span class='cn'>TRUE</span>,</span>
+<span>    parallel_over <span class='op'>=</span> <span class='st'>"everything"</span>,</span>
+<span>    save_workflow <span class='op'>=</span> <span class='cn'>TRUE</span></span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>grid_results</span> <span class='op'>&lt;-</span></span>
+<span>  <span class='va'>wflow_mod</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://workflowsets.tidymodels.org/reference/workflow_map.html'>workflow_map</a></span><span class='op'>(</span></span>
+<span>    seed <span class='op'>=</span> <span class='fl'>98765</span>,</span>
+<span>    resamples <span class='op'>=</span> <span class='va'>df_folds</span>,</span>
+<span>    grid <span class='op'>=</span> <span class='fl'>10</span>,</span>
+<span>    control <span class='op'>=</span> <span class='va'>grid_ctrl</span></span>
+<span>  <span class='op'>)</span></span>
+<span></span>
+<span><span class='co'>#Accuracy of the grid results</span></span>
+<span></span>
+<span><span class='va'>grid_results</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://workflowsets.tidymodels.org/reference/rank_results.html'>rank_results</a></span><span class='op'>(</span>select_best <span class='op'>=</span> <span class='cn'>TRUE</span>, </span>
+<span>               rank_metric <span class='op'>=</span> <span class='st'>"rmse"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span>Models <span class='op'>=</span> <span class='va'>wflow_id</span>, <span class='va'>.metric</span>, <span class='va'>mean</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<pre><code># A tibble: 2 × 3
+  Models  .metric     mean
+  &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;
+1 rec_mod rmse    770.    
+2 rec_mod rsq       0.0492</code></pre>
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#Finalizing the model with the best parameters</span></span>
+<span><span class='va'>best_param</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='va'>grid_results</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://workflowsets.tidymodels.org/reference/extract_workflow_set_result.html'>extract_workflow_set_result</a></span><span class='op'>(</span><span class='st'>"rec_mod"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>select_best</span><span class='op'>(</span>metric <span class='op'>=</span> <span class='st'>"rmse"</span><span class='op'>)</span></span>
+<span></span>
+<span></span>
+<span><span class='va'>wflw_fit</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='va'>grid_results</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'><a href='https://hardhat.tidymodels.org/reference/hardhat-extract.html'>extract_workflow</a></span><span class='op'>(</span><span class='st'>"rec_mod"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>finalize_workflow</span><span class='op'>(</span><span class='va'>best_param</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>  <span class='fu'>fit</span><span class='op'>(</span><span class='va'>df_train</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'>#Calibrate the model to the testing set</span></span>
+<span></span>
+<span><span class='va'>calibration_boost</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='va'>wflw_fit</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://business-science.github.io/modeltime/reference/modeltime_calibrate.html'>modeltime_calibrate</a></span><span class='op'>(</span>new_data <span class='op'>=</span> <span class='va'>df_test</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='co'>#Accuracy of the finalized model</span></span>
+<span><span class='va'>calibration_boost</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://business-science.github.io/modeltime/reference/modeltime_accuracy.html'>modeltime_accuracy</a></span><span class='op'>(</span>metric_set <span class='op'>=</span> <span class='fu'>metric_set</span><span class='op'>(</span><span class='va'>mape</span>, <span class='va'>smape</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<pre><code># A tibble: 1 × 5
+  .model_id .model_desc                              .type  mape smape
+      &lt;int&gt; &lt;chr&gt;                                    &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+1         1 ARIMA(1,0,1) WITH NON-ZERO MEAN W/ XGBO… Test   13.1  14.2</code></pre>
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#Predictive intervals and visualization</span></span>
+<span></span>
+<span><span class='va'>calibration_boost</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://business-science.github.io/modeltime/reference/modeltime_forecast.html'>modeltime_forecast</a></span><span class='op'>(</span>actual_data <span class='op'>=</span> <span class='va'>df</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> </span>
+<span>                       <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>date</span> <span class='op'>&gt;=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/nth.html'>last</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span><span class='op'>(</span><span class='fl'>12</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>                     new_data <span class='op'>=</span> <span class='va'>df_test</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span></span>
+<span>  <span class='fu'><a href='https://business-science.github.io/modeltime/reference/plot_modeltime_forecast.html'>plot_modeltime_forecast</a></span><span class='op'>(</span>.interactive <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span>                          .legend_show <span class='op'>=</span> <span class='cn'>FALSE</span>,</span>
+<span>                          .line_size <span class='op'>=</span> <span class='fl'>1.5</span>,</span>
+<span>                          .color_lab <span class='op'>=</span> <span class='st'>""</span>,</span>
+<span>                          .title <span class='op'>=</span> <span class='st'>"Monthly milk consumption, mL"</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>.key</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>subtitle <span class='op'>=</span> <span class='st'>"Monthly Data&lt;br&gt;&lt;span style = 'color:darkgrey;'&gt;Predictive Intervals&lt;/span&gt;&lt;br&gt;&lt;span style = 'color:red;'&gt;Point Forecast Line&lt;/span&gt;"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_date.html'>scale_x_date</a></span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://lubridate.tidyverse.org/reference/make_datetime.html'>make_date</a></span><span class='op'>(</span><span class='fl'>2023</span>,<span class='fl'>11</span>,<span class='fl'>1</span><span class='op'>)</span>, </span>
+<span>                          <span class='fu'><a href='https://lubridate.tidyverse.org/reference/make_datetime.html'>make_date</a></span><span class='op'>(</span><span class='fl'>2024</span>,<span class='fl'>5</span>,<span class='fl'>1</span><span class='op'>)</span>,</span>
+<span>                          <span class='fu'><a href='https://lubridate.tidyverse.org/reference/make_datetime.html'>make_date</a></span><span class='op'>(</span><span class='fl'>2024</span>,<span class='fl'>10</span>,<span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>,</span>
+<span>               labels <span class='op'>=</span> <span class='fu'>scales</span><span class='fu'>::</span><span class='fu'><a href='https://scales.r-lib.org/reference/label_date.html'>label_date</a></span><span class='op'>(</span>format <span class='op'>=</span> <span class='st'>"%b'%y"</span><span class='op'>)</span>,</span>
+<span>               expand <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/expansion.html'>expansion</a></span><span class='op'>(</span>mult <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.1</span>, <span class='fl'>.1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'>ggthemes</span><span class='fu'>::</span><span class='fu'><a href='http://jrnold.github.io/ggthemes/reference/theme_wsj.html'>theme_wsj</a></span><span class='op'>(</span></span>
+<span>    base_family <span class='op'>=</span> <span class='st'>"Roboto Slab"</span>,</span>
+<span>    title_family <span class='op'>=</span> <span class='st'>"Roboto Slab"</span>,</span>
+<span>    color <span class='op'>=</span> <span class='st'>"blue"</span>,</span>
+<span>    base_size <span class='op'>=</span> <span class='fl'>12</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"none"</span>,</span>
+<span>        plot.background <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_rect</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"lightyellow"</span>, color <span class='op'>=</span> <span class='st'>"lightyellow"</span><span class='op'>)</span>,</span>
+<span>        plot.title <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>24</span><span class='op'>)</span>,</span>
+<span>        axis.text <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_text</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>16</span><span class='op'>)</span>,</span>
+<span>        plot.subtitle <span class='op'>=</span> <span class='fu'>ggtext</span><span class='fu'>::</span><span class='fu'><a href='https://wilkelab.org/ggtext/reference/element_markdown.html'>element_markdown</a></span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>20</span>, face <span class='op'>=</span> <span class='st'>"bold"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+</details>
+<p><img src="2024-11-15-TSML_modeltime_files/figure-html5/packages%20data-2.png" width="672" /></p>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

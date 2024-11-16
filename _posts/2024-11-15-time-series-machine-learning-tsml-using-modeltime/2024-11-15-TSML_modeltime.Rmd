@@ -1,0 +1,179 @@
+---
+title: "Time Series Machine Learning (TSML) using modeltime pakcage"
+description: Time Series Machine Learning (TSML) is a specialized field that focuses on analyzing and predicting data points collected over time. It leverages patterns like trends, seasonality, and temporal dependencies to make accurate forecasts and detect anomalies. TSML combines traditional statistical methods like ARIMA with modern machine learning techniques such as LSTMs and Transformers, making it highly versatile. It plays a critical role in various industries, including finance, healthcare, and energy, enabling better decision-making and process optimization through temporal data analysis.|
+  
+author:
+  - name: Cailu Lin
+    url: https://github.com/Cailu086Lin
+    affiliation: Monell RClub
+    affiliation_url: https://vramirez4.github.io/Rclub_Blog/
+date: "`r Sys.Date()`"
+output: 
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_float: true
+    fig_width: 7
+    fig_height: 4.5
+    theme: cosmo
+    highlight: tango
+    code_folding: hide
+    code_download: true
+---
+
+
+```{r packages data, warning=FALSE}
+#packages and data
+library(tidyverse)
+library(tidyquant)
+library(timetk)
+library(tidymodels)
+library(modeltime)
+library(workflowsets)
+
+
+# monthly_milk_consume was simulated based on the USDA report
+
+set.seed(123)  # Set seed for reproducibility
+dates <- seq.Date(from = as.Date("2015-09-01"), to = as.Date("2024-11-01"), by = "month")
+
+# Generate random milk consumption values between 4000 and 6000 for each date
+monthly_milk_consume <- sample(3500:6000, size = length(dates), replace = TRUE)
+
+# Create data frame
+df <- data.frame(date = dates, monthly_milk_consume = monthly_milk_consume)
+
+plot_time_series(df,date, monthly_milk_consume, .interactive = TRUE)
+
+
+
+#Splitting data
+split <- 
+  df %>% 
+  time_series_split(assess = "1 year", 
+                    cumulative = TRUE)
+
+df_train <- training(split)
+df_test <- testing(split)
+
+
+#Time series cross validation for tuning
+
+df_folds <- time_series_cv(df_train,
+                           initial = 77, 
+                           assess = 12)
+
+
+#Preprocessing 
+rec <- 
+  recipe(monthly_milk_consume ~ date, data = df_train) %>% 
+  step_mutate(date_num = as.numeric(date)) %>% 
+  step_date(date, features = "month") %>% 
+  step_dummy(date_month, one_hot = TRUE) %>% 
+  step_normalize(all_numeric_predictors())
+
+
+rec %>% 
+  prep() %>% 
+  bake(new_data = NULL) %>% view()
+
+#Model (ARIMA=Auto-Regressive Integrated Moving Average)
+
+mod <- 
+  arima_boost(
+    min_n = tune(),
+    learn_rate = tune(),
+    trees = tune()
+  ) %>%
+  set_engine(engine = "auto_arima_xgboost")
+
+#Workflow set
+wflow_mod <- 
+  workflow_set(
+    preproc = list(rec = rec),
+    models = list(mod = mod)
+  ) 
+
+
+#Tuning and evaluating the model on all the samples
+grid_ctrl <-
+  control_grid(
+    save_pred = TRUE,
+    parallel_over = "everything",
+    save_workflow = TRUE
+  )
+
+grid_results <-
+  wflow_mod %>%
+  workflow_map(
+    seed = 98765,
+    resamples = df_folds,
+    grid = 10,
+    control = grid_ctrl
+  )
+
+#Accuracy of the grid results
+
+grid_results %>% 
+  rank_results(select_best = TRUE, 
+               rank_metric = "rmse") %>%
+  select(Models = wflow_id, .metric, mean)
+
+
+#Finalizing the model with the best parameters
+best_param <- 
+  grid_results %>%
+  extract_workflow_set_result("rec_mod") %>% 
+  select_best(metric = "rmse")
+
+
+wflw_fit <- 
+  grid_results %>% 
+  extract_workflow("rec_mod") %>% 
+  finalize_workflow(best_param) %>% 
+  fit(df_train)
+
+#Calibrate the model to the testing set
+
+calibration_boost <- 
+  wflw_fit %>%
+  modeltime_calibrate(new_data = df_test)
+
+#Accuracy of the finalized model
+calibration_boost %>%
+  modeltime_accuracy(metric_set = metric_set(mape, smape))
+
+#Predictive intervals and visualization
+
+calibration_boost %>%
+  modeltime_forecast(actual_data = df %>% 
+                       filter(date >= last(date) - months(12)),
+                     new_data = df_test) %>%
+  plot_modeltime_forecast(.interactive = FALSE,
+                          .legend_show = FALSE,
+                          .line_size = 1.5,
+                          .color_lab = "",
+                          .title = "Monthly milk consumption, mL") +
+  geom_point(aes(color = .key)) +
+  labs(subtitle = "Monthly Data<br><span style = 'color:darkgrey;'>Predictive Intervals</span><br><span style = 'color:red;'>Point Forecast Line</span>") + 
+  scale_x_date(breaks = c(make_date(2023,11,1), 
+                          make_date(2024,5,1),
+                          make_date(2024,10,1)),
+               labels = scales::label_date(format = "%b'%y"),
+               expand = expansion(mult = c(.1, .1))) +
+  ggthemes::theme_wsj(
+    base_family = "Roboto Slab",
+    title_family = "Roboto Slab",
+    color = "blue",
+    base_size = 12) +
+  theme(legend.position = "none",
+        plot.background = element_rect(fill = "lightyellow", color = "lightyellow"),
+        plot.title = element_text(size = 24),
+        axis.text = element_text(size = 16),
+        plot.subtitle = ggtext::element_markdown(size = 20, face = "bold"))
+```
+
+
+
+
+
