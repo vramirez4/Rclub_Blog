@@ -68,7 +68,7 @@ To use this R library, ensure the [Ollama](https://ollama.com/) app is install
 
 3.  Load `ollamar` in R to connect to the Ollama local server
 
-4.  Download a LLM by running `pull("model name")`
+4.  Download an LLM by running `pull("model name")`
 
 ```{r ollamar, eval=FALSE}
 #library(ollamar)
@@ -136,7 +136,7 @@ res_decat$resT$`Chanel N5`
 | For the following perceptual attributes, this stimulus has been scored with rather *high* values compared to the average over all stimuli; attributes have been sorted from the most discriminative one to the less discriminative one: *Heady, Oriental, Wrapping, Spicy*. 
 | For the following perceptual attributes, this stimulus has been scored with rather *low* values compared to the average over all stimuli; attributes have been sorted from the most discriminative one to the less discriminative one: *Greedy, Fruity, Vanilla*.
 
-## [Multivarirate analysis:]{.underline} PCA (Principal Component Analysis) on the adjusted means data table
+## [Multivariate analysis:]{.underline} PCA (Principal Component Analysis) on the adjusted means data table
 
 ```{r pca, eval=FALSE}
 res_pca <- PCA(res_decat$adjmean, graph = FALSE)
