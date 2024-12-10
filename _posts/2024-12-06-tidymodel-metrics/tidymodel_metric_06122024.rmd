@@ -1,0 +1,393 @@
+---
+title: "tidymodel_metric_06122024"
+date: "2024-12-06"
+author:
+  - name: Robert Pellegrino 
+    affiliation: Monell
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load packages
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(lubridate, broom, tidymodels, janitor, tidyverse)
+
+tidymodels::tidymodels_prefer()
+
+```
+
+# Simple Metrics
+## Numerical
+```{r}
+# Simulate test-retest data
+set.seed(123)
+simulated_data <- tibble(
+  truth = rnorm(50, mean = 70, sd = 10),  # Simulated true values
+  test_1 = truth + rnorm(50, mean = 0, sd = 5)  # Test 1 ratings with noise
+)
+
+# View the first few rows
+head(simulated_data)
+
+# Example with one metric: RMSE
+simulated_data %>%
+  rmse(truth = truth, estimate = test_1)
+
+# Example with multiple metrics: RMSE, MAE, and R-squared
+simulated_data %>%
+  metrics(truth = truth, estimate = test_1)
+
+
+# Example with multiple metrics using metric_set
+
+  ## Define a metric set
+  my_metrics <- metric_set(rmse, mae, rsq)
+
+simulated_data %>%
+  my_metrics(truth = truth, estimate = test_1)
+
+
+
+```
+
+## Nominal
+```{r}
+# Simulate test-retest categorical data
+set.seed(123)
+simulated_data <- tibble(
+  truth = factor(rep(c("A", "B", "C"), length.out = 50)),  # Simulated true classes
+  test_1 = factor(sample(c("A", "B", "C"), size = 50, replace = TRUE))  # Test 1 predictions
+)
+
+# View the first few rows
+head(simulated_data)
+
+# Example with one metric: Accuracy
+simulated_data %>%
+  accuracy(truth = truth, estimate = test_1)
+
+# Example with multiple metrics: Accuracy, kap
+simulated_data %>%
+  metrics(truth = truth, estimate = test_1)
+
+# Example with multiple metrics using metric_set
+  ## Define a metric set
+  my_metrics <- metric_set(accuracy, sens, spec)
+
+simulated_data %>%
+  my_metrics(truth = truth, estimate = test_1)
+
+```
+# What the hell is tidymodel?
+Tidymodels Workflow for Model Building
+
+    Prepare Data
+        Clean, transform, and preprocess raw data.
+
+    ↓
+
+    Split Data
+        Divide the dataset into training and testing sets.
+
+    ↓
+
+    Define a Recipe
+        Specify preprocessing steps for predictors and outcomes.
+
+    ↓
+
+    Specify a Model
+        Choose a model (e.g., linear regression, random forest, etc.) and define its specifications.
+
+    ↓
+
+    Create a Workflow
+        Combine the recipe and the model into a workflow.
+
+    ↓
+
+    Cross-Validate Using Resamples
+        Use resampling techniques (e.g., k-fold CV) to tune and validate the model.
+
+    ↓
+
+    Evaluate Performance Using Metrics
+        Assess model performance with metrics like RMSE, R-squared, accuracy, etc.
+
+    ↓
+
+    Finalize Model
+        Fit the model on the entire training dataset.
+
+    ↓
+
+    Make Predictions on Test Set
+        Evaluate the finalized model on the test set and make predictions.
+        
+  
+
+# Classification Models
+## Build the Model
+Simple model (e.g., a decision tree) using parsnip
+```{r}
+library(tidymodels)
+
+# Prepare data
+data(iris)
+iris <- iris %>% 
+  mutate(Species = as.factor(Species))
+
+set.seed(123)
+iris_split <- initial_split(iris, prop = 0.8, strata = Species)
+iris_train <- training(iris_split)
+iris_test <- testing(iris_split)
+
+# Define a simple model
+tree_spec <- decision_tree(mode = "classification", tree_depth = 3) %>%
+  set_engine("rpart")
+
+# Fit the model
+tree_fit <- tree_spec %>%
+  fit(Species ~ ., data = iris_train)
+
+# Make predictions
+iris_predictions <- predict(tree_fit, iris_test, type = "prob") %>%
+  bind_cols(predict(tree_fit, iris_test, type = "class")) %>%
+  bind_cols(iris_test %>% select(Species))
+
+head(iris_predictions)
+
+```
+
+# Check the metrics
+Start with common classification metrics:
+
+    Accuracy: accuracy()
+    ROC AUC: roc_auc()
+    Sensitivity/Recall: sens()
+    Specificity: spec()
+    F1-score: f_meas()
+    
+```{r}
+
+head(iris_predictions)
+
+# Classification metrics
+iris_predictions %>%
+  accuracy(truth = Species, estimate = .pred_class)
+
+iris_predictions %>%
+  roc_auc(truth = Species, .pred_setosa, .pred_versicolor, .pred_virginica)
+
+iris_predictions %>%
+  sens(truth = Species, estimate = .pred_class)
+
+iris_predictions %>%
+  spec(truth = Species, estimate = .pred_class)
+
+iris_predictions %>%
+  f_meas(truth = Species, estimate = .pred_class)
+
+```
+
+## Integrate Metrics into Workflows
+Metric (from yardstick) integrates into tidymodels with resamples package
+*collect_metrics() outputs a tidy tibble of performance metrics, all powered by yardstick under the hood.*
+```{r}
+
+# Prepare data
+data(iris)
+iris <- iris %>% 
+  mutate(Species = as.factor(Species))
+
+set.seed(123)
+iris_split <- initial_split(iris, prop = 0.8, strata = Species)
+iris_train <- training(iris_split)
+iris_test <- testing(iris_split)
+
+# Define a simple model
+tree_spec <- decision_tree(mode = "classification", tree_depth = 3) %>%
+  set_engine("rpart")
+
+# Define a recipe (optional step)
+iris_rec <- recipe(Species ~ ., data = iris_train) %>%
+  step_normalize(all_predictors())
+
+# Setup workflow
+iris_wf <- workflow() %>%
+  add_model(tree_spec) %>%
+  add_recipe(iris_rec)
+
+set.seed(123)
+iris_folds <- vfold_cv(iris_train, v = 5, strata = Species)
+
+# Resample
+iris_res <- iris_wf %>%
+  fit_resamples(
+    resamples = iris_folds,
+    metrics = metric_set(accuracy, roc_auc, f_meas),
+    control = control_resamples(save_pred = TRUE)
+  )
+
+# Collect metrics
+iris_res %>% collect_metrics()
+
+```
+
+# Regressions
+## Build and Evaluate
+```{r}
+# For regression: using the mtcars dataset
+data(mtcars)
+set.seed(123)
+car_split <- initial_split(mtcars, prop = 0.8)
+car_train <- training(car_split)
+car_test <- testing(car_split)
+
+lm_spec <- linear_reg() %>%
+  set_engine("lm")
+
+lm_fit <- lm_spec %>% 
+  fit(mpg ~ wt + hp, data = car_train)
+
+car_preds <- car_test %>%
+  mutate(.pred = predict(lm_fit, new_data = car_test)$.pred)
+
+car_preds %>% rmse(truth = mpg, estimate = .pred)
+car_preds %>% rsq(truth = mpg, estimate = .pred)
+
+```
+
+## Custom Metrics
+```{r}
+
+# Suppose we want a custom metric, like Mean Absolute Percentage Error (MAPE)
+mape_metric <- function(data, truth, estimate, na_rm = TRUE, ...) {
+  # Extract columns
+  truth <- data[[truth]]
+  estimate <- data[[estimate]]
+  
+  mean(abs((truth - estimate) / truth), na.rm = na_rm) * 100
+}
+
+
+# Now lets use it in a workflow
+  ## For regression: using the mtcars dataset
+  data(mtcars)
+  set.seed(123)
+  car_split <- initial_split(mtcars, prop = 0.8)
+  car_train <- training(car_split)
+  car_test <- testing(car_split)
+  
+  # Define a model specification
+  lm_spec <- linear_reg() %>%
+    set_engine("lm")
+  
+  # Define a recipe
+  car_rec <- recipe(mpg ~ wt + hp, data = car_train) %>%
+    step_center(all_predictors()) %>%
+    step_scale(all_predictors())
+  
+  # Create a workflow
+  car_wf <- workflow() %>%
+    add_recipe(car_rec) %>%
+    add_model(lm_spec)
+  
+  # Define resamples for cross-validation
+  car_folds <- vfold_cv(car_train, v = 5)
+  
+  # Create a metric set that includes MAPE along with other metrics
+  my_metrics <- metric_set(mape, rmse, rsq)
+
+  # Fit resamples and evaluate
+  car_res <- car_wf %>%
+    fit_resamples(
+      resamples = car_folds,
+      metrics = my_metrics,
+      control = control_resamples(save_pred = TRUE)
+    )
+  
+  # Collect the metrics
+  car_res %>% collect_metrics()
+
+```
+
+# Side-by-side comparisions
+```{r}
+# Load necessary libraries
+pacman::p_load(workflowsets)
+
+# Use the mtcars dataset
+data(mtcars)
+set.seed(123)
+car_split <- initial_split(mtcars, prop = 0.8)
+car_train <- training(car_split)
+car_test <- testing(car_split)
+
+# Define model specifications
+lm_spec <- linear_reg() %>%
+  set_engine("lm")
+
+rf_spec <- rand_forest(mode = "regression", trees = 500) %>%
+  set_engine("ranger")
+
+# Define a recipe
+car_rec <- recipe(mpg ~ wt + hp, data = car_train) %>%
+  step_center(all_predictors()) %>%
+  step_scale(all_predictors())
+
+# Define resamples for cross-validation
+car_folds <- vfold_cv(car_train, v = 5)
+
+# Use a standard metric set for regression
+my_metrics <- metric_set(rmse, rsq)
+
+# Create a workflow set
+workflow_set <- workflow_set(
+  preproc = list(car_recipe = car_rec),
+  models = list(lm = lm_spec, rf = rf_spec)
+)
+
+# Fit resamples for all workflows in the workflow set
+workflow_results <- workflow_set %>%
+  workflow_map(
+    fn = "fit_resamples",
+    seed = 123,
+    resamples = car_folds,
+    metrics = my_metrics,
+    control = control_resamples(save_pred = TRUE)
+  )
+
+# Rank workflows by RMSE
+ranked_results <- workflow_results %>%
+  rank_results(rank_metric = "rmse", select_best = TRUE)
+
+# Visualize the metrics for comparison
+autoplot(workflow_results, metric = "rmse") +
+  ggtitle("Model Comparison by RMSE")
+
+#### Evaluate the Best Model on the Test Set ###########
+# Select the best model based on RMSE ranking
+best_model <- ranked_results %>%
+  filter(rank == 1) %>%
+  pull(wflow_id) %>% unique()
+
+best_workflow <- workflow_results %>%
+  extract_workflow(best_model)
+
+# Finalize the workflow with the best hyperparameters
+final_workflow <- best_workflow
+
+# Evaluate on the test set
+final_fit <- final_workflow %>%
+  last_fit(split = car_split, metrics = my_metrics)
+
+# Collect final metrics
+collect_metrics(final_fit)
+
+```
+
