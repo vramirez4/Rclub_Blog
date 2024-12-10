@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Load packages
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(lubridate, broom, tidymodels, janitor, tidyverse)
+pacman::p_load(lubridate, broom, tidymodels, janitor, tidyverse,ranger)
 
 tidymodels::tidymodels_prefer()
 
