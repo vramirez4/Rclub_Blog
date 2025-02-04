@@ -6,14 +6,14 @@
       "description": "A brief history of R Club, our philosophy, and why we're making a blog anyways ",
       "author": [],
       "contents": "\nHistory\nR club was founded by a group of scientists at Monell Chemical Senses center as a way to share R resources, help each other troubleshoot code, and support each other in learning to code in R. The first meeting of R club was organized by founding members CJ Arayata, Casey Trimmer, Yusuke Ihara, Cailu Lin, and Dani Reed and held on Friday, March 11th, 2016 at 11am. R club has been meeting at 11am on Fridays ever since!\nOver the years, the group has expanded, and since our 2020 shift to virtual meetings, we now have R club members across the globe!\nPhilosophy\nMuch of R club’s philosophy is embedded in the first R club invitation e-mail, written by founding member CJ.\nInvitation to the first meeting of R ClubOur tenants are:\nLike any muscle that we keep strong through exercise, coding in R requires routine practice. R club is group fitness for R coding.\nHaving a community of support makes coding easier and more approachable, and by joining R club, members are making a commitment to this community.\nR coders of all levels are welcome, and everyone is expected to take their turn presenting. Beginner coders still have things they can teach more expert coders, and often beginner coders are best equipped to help other beginners get started.\nR club is casual. It’s not necessary to spend a lot of time preparing for R club - you can simply share a YouTube video or a blogpost that you found. Sharing resources you found that other people developed can be just as enriching for the group.\nWe start promptly at 11am and end promptly at 11:30am EST. We are all busy people, and our punctuality is a sign of respect for each other.\nWhy write a blog?\nWe are always exploring new formats for building our R skills, from mini-hackathons to internal trello message boards, and this blog is another way for us to build new R skills together (coding collaboratively, using the distill package, using version control and pushing changes to Github, etc.).\nWe also have a practice of sharing the code we present after R club, but we’ve typically shared code by attaching files to e-mails, meaning you have to search your inbox to find those useful code nuggets. Our goal is to migrate all these golden nuggets - pieces of code, links to YouTube videos, handy packages, tips and tricks - to a blog so that WE can more easily find them and so that we can share them with a wider community of R users.\nWe also hope that by publicly documenting our R club, we might inspire the nucleation of other R clubs.\n\n\n\n",
-      "last_modified": "2024-11-18T11:57:55-05:00"
+      "last_modified": "2025-02-04T13:39:20-05:00"
     },
     {
       "path": "index.html",
       "title": "R Club Blog",
       "author": [],
       "contents": "\n\n\n\n",
-      "last_modified": "2024-11-18T11:57:55-05:00"
+      "last_modified": "2025-02-04T13:32:44-05:00"
     }
   ],
   "collections": ["posts/posts.json"]
