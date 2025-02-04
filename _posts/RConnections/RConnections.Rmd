@@ -1,0 +1,15 @@
+---
+title: "RConnections"
+author: "Carissa Evans"
+date: "2025-02-04"
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+# A Shiny App Inspired By the NY Times Connections
+```{r pressure, echo=FALSE, out.width="100%"}
+knitr::include_app(
+  "https://vicente-ramirez.shinyapps.io/RConnections/", height=720
+  )
+```

@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/RConnections/",
+    "title": "RConnections",
+    "description": {},
+    "author": [
+      {
+        "name": "Carissa Evans",
+        "url": {}
+      }
+    ],
+    "date": "2025-02-04",
+    "categories": [],
+    "contents": "\nA Shiny App Inspired By the NY Times Connections\n\n\n\n\n\n\n\n",
+    "preview": {},
+    "last_modified": "2025-02-04T13:32:44-05:00",
+    "input_file": "RConnections.knit.md"
+  },
+  {
     "path": "posts/2024-12-06-tidymodel-metrics/",
     "title": "tidymodel_metric_06122024",
     "description": {},
